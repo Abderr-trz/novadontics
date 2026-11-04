@@ -72,7 +72,7 @@ export function PatientJourney() {
   useGSAP(() => {
     const media = gsap.matchMedia();
 
-    media.add("(min-width: 1024px) and (min-height: 640px) and (prefers-reduced-motion: no-preference)", () => {
+    media.add("(min-width: 1024px) and (min-height: 580px) and (prefers-reduced-motion: no-preference)", () => {
       const stage = canvas.current;
       if (!stage) return;
 
@@ -90,7 +90,7 @@ export function PatientJourney() {
         defaults: { ease: "none" },
         scrollTrigger: {
           trigger: stage,
-          start: "top top+=86",
+          start: "top top+=80",
           end: () => "+=" + Math.round(window.innerHeight * 1.85),
           scrub: 0.7,
           pin: true,
@@ -123,7 +123,7 @@ export function PatientJourney() {
     // Keep the full five-card diagram visible on short desktop windows and
     // for visitors who request reduced motion. Only pinning is disabled.
     media.add(
-      "(min-width: 1024px) and (max-height: 639px), (min-width: 1024px) and (prefers-reduced-motion: reduce)",
+      "(min-width: 1024px) and (max-height: 579px), (min-width: 1024px) and (prefers-reduced-motion: reduce)",
       () => {
         const paths = canvas.current?.querySelectorAll<SVGPathElement>(".pj-wire-active");
         paths?.forEach((path) => {
