@@ -123,3 +123,23 @@ Final code at `src/components/sections/PatientJourney.tsx` and `src/app/patient-
 - Actual desktop browser QA (TinyFish) at approximately 1368x831 reported sticky screen, 5 right stages, vertical progress, smooth screen transitions, no clipping/overlap/excess whitespace. Mobile was NOT visually verified: check 390px and 768px before final merge.
 - Branch preview: https://novadontics-nr104wiua-abderrahim-tarzoukt-s-projects.vercel.app/ (Vercel Deployment Protection; obtain share access via Vercel tool).
 - Never merge to `main` before user visual review.
+
+
+## November 4 — Reimplementation from user's uploaded 12.417s, 1920×1080, 60fps video (authoritative current journey design)
+
+IMPORTANT: This supersedes the earlier DARK STICKY PRODUCT SCREEN patient-journey direction above. The user supplied a screen-recorded Novadontics reference showing “Five moving parts. One beautiful rhythm.” and explicitly requested that the **One patient journey. One connected record.** section adopt this motion. The recording was inspected over 25 evenly-spaced frames and individual high-resolution key frames.
+
+Observed reference-motion sequence:
+1. Warm/ivory dot-grid workflow canvas comes into view with five white feature cards surrounding the original brand-marked center.
+2. All five have faint/gray curved connector lines. Each card is clear but inactive; central mark is initially subdued.
+3. As scrolling progresses, connections trace sequentially in bright yellow/orange while nodes transition to visible “Connected” states. Connected state is persistent while the animation progresses; no large cards fly across the screen.
+4. Center label brightens to indicate unified practice when connections finish. The visual structure stays spatially anchored (pin/scrub) during the sequence.
+5. Final interconnected state remains visible until scrolling out; reverse scrolling should reverse the states.
+
+Implementation lives ONLY in:
+- `src/components/sections/PatientJourney.tsx`: clickable five-node diagram with cards Appointment, Patient record, Clinical imaging, Billing & payments, Follow-up. Original `LogoColorAndGray.svg` displayed at the center, no fake patient info. SVG 1200×620 bezier curves have neutral base paths and GSAP-animated gold/orange overlay stroke-dashoffset. ScrollTrigger pins the stage and scrubs five connection steps; react state controls connected badges and central status. Selecting a card navigates to its scroll segment using the existing native window smooth scroll; no wheel interception. Toggle behavior reversible.
+- `src/app/patient-journey.css`: 1400px-wide cream canvas with soft original dotted grid, low-shadow white nodes with deliberate positions, warm gold connectors, center brand panel, modest/consistent Inter type, mobile stacked accessible list, static reduced-motion fallback.
+- GSAP is only active with viewport >=1120px wide and >=720px tall and when reduced motion is NOT requested. Below either threshold or with reduced motion the five steps remain visible as a linear mobile/tablet flow with no pinning, no JS-dependent visibility.
+- All other website sections remain untouched.
+
+Vercel deployment for source commit `fb812dfd14efb69af18389a3fe9d2429fd68b2d5` is READY; preview is protected and share link can be generated with Vercel get_access_to_vercel_url. TinyFish QA was attempted but cancelled by the user before a full visual result was returned: DO NOT claim live scroll-movement visual verification for this build. Next validation: review full connection sequence, reverse scroll, card clicks at 1368×831; also inspect mobile at 390px and 768px. Maintain current branch; do not merge to main without user approval.
