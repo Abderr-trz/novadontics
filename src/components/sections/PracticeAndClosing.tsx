@@ -6,13 +6,16 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import { CustomerVoice } from "./CustomerVoice";
+import { Onboarding } from "./Onboarding";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const audiences = [
   { title: "Independent practices", text: "A clear, connected foundation for the everyday work of running a dental practice.", href: "https://www.novadontics.com/solutions/independent-practices" },
   { title: "Specialists & implant dentists", text: "From clinical imaging to implant case management, more of your workflow lives together.", href: "https://www.novadontics.com/platform/implant-dentistry-tools" },
-  { title: "Groups & DSOs", text: "Bring people, reporting and operations together across multiple locations.", href: "https://www.novadontics.com/who-we-are-for" },
+  { title: "New dental practices", text: "Build your daily clinical and administrative workflows on a connected foundation from the start.", href: "https://www.novadontics.com/solutions/new-practices" },
+  { title: "Groups & DSOs", text: "Bring people, reporting and operations together across multiple locations.", href: "https://www.novadontics.com/solutions/groups-dsos" },
 ];
 
 export function PracticeAndClosing() {
@@ -66,8 +69,10 @@ export function PracticeAndClosing() {
               ))}
             </div>
           </div>
+          <CustomerVoice />
         </div>
       </section>
+      <Onboarding />
       <section className="closing-section" ref={closing} aria-labelledby="closing-title">
         <div className="closing-orbit" aria-hidden="true" />
         <div className="site-container">
