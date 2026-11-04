@@ -59,7 +59,7 @@ export function PatientJourney() {
 
   useGSAP(() => {
     const mm = gsap.matchMedia();
-    mm.add("(min-width: 1100px) and (min-height: 730px) and (prefers-reduced-motion: no-preference)", () => {
+    mm.add("(min-width: 1100px) and (min-height: 660px) and (prefers-reduced-motion: no-preference)", () => {
       if (!stage.current) return;
 
       gsap.set(".journey-meter-fill", { scaleX: 0, transformOrigin: "left center" });
