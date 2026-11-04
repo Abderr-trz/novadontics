@@ -21,7 +21,10 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"),
+  ),
   title: "Novadontics — All-in-One Dental Practice Management Software",
   description:
     "Novadontics connects dental scheduling, patient engagement, clinical management, imaging, billing, and implant workflows within one integrated cloud-based platform.",
