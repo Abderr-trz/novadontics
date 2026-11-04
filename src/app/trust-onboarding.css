@@ -28,8 +28,8 @@
 .customer-voice-accent { height: 9px; width: 9px; border-radius: 50%; background: #ec8624; }
 .customer-voice h3 {
   max-width: 650px;
-  font: 655 clamp(35px, 3.4vw, 52px)/1.14 var(--font-manrope), sans-serif;
-  letter-spacing: -.062em;
+  font: 580 clamp(35px, 3.4vw, 52px)/1.14 var(--font-inter), sans-serif;
+  letter-spacing: -.035em;
 }
 .customer-voice h3 em { font-style: normal; color: #697c7d; }
 .customer-voice blockquote {
@@ -99,8 +99,8 @@
 }
 .switch-heading h2 {
   max-width: 760px;
-  font: 660 clamp(46px, 5.2vw, 74px)/1.11 var(--font-manrope), sans-serif;
-  letter-spacing: -.067em;
+  font: 590 clamp(46px, 5.2vw, 74px)/1.11 var(--font-inter), sans-serif;
+  letter-spacing: -.047em;
   text-wrap: balance;
 }
 .switch-heading h2 em { font-style: normal; color: #a97533; }
@@ -149,7 +149,7 @@
   border-radius: 50%;
 }
 .switch-step h3 {
-  font: 650 clamp(20px, 1.9vw, 27px)/1.27 var(--font-manrope), sans-serif;
+  font: 570 clamp(20px, 1.9vw, 27px)/1.27 var(--font-inter), sans-serif;
   letter-spacing: -.045em;
   color: #282e2c;
   max-width: 240px;
