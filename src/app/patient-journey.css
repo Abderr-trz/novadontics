@@ -42,8 +42,8 @@
   position: relative;
   isolation: isolate;
   width: min(calc(100% - 72px), 1470px);
-  height: min(730px, calc(100svh - 125px));
-  min-height: 610px;
+  height: min(730px, calc(100svh - 118px));
+  min-height: 520px;
   margin-inline: auto;
   color: #fafbf9;
   border-radius: 25px;
@@ -236,7 +236,7 @@
 
 /* On screens where pinning is not suitable, show every stage in normal document flow. */
 .journey-mobile-story { display: none; }
-@media (max-width: 1099px), (max-height: 729px) {
+@media (max-width: 1099px), (max-height: 659px) {
   .journey-stage { display: none; }
   .journey-mobile-story { display: block; max-width: 850px; }
   .journey-mobile-beat {
