@@ -4,8 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ArrowUpRight, ArrowDownRight, ShieldCheck, Cloud, UsersRound } from "lucide-react";
-import { AwardsBand } from "./TrustProof";
+import { ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(useGSAP);
 
@@ -16,54 +15,55 @@ export function Hero() {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
-      timeline.from(".hero-title-line", { yPercent: 105, opacity: 0, duration: 1.05, stagger: 0.14 })
-        .from(".hero-lead", { y: 20, opacity: 0, duration: 0.75 }, 0.35)
-        .from(".hero-actions", { y: 12, opacity: 0, duration: 0.65 }, 0.48)
-        .from(".hero-stage", { y: 44, opacity: 0, scale: 0.985, duration: 1.1 }, 0.48);
+      timeline
+        .from(".hero-pill", { y: 14, opacity: 0, duration: 0.65 })
+        .from(".hero-title-line", { y: 36, opacity: 0, stagger: 0.105, duration: 0.86 }, "-=0.38")
+        .from(".hero-lead", { y: 15, opacity: 0, duration: 0.7 }, "-=0.45")
+        .from(".hero-actions", { y: 12, opacity: 0, duration: 0.65 }, "-=0.43")
+        .from(".hero-showcase", { y: 24, opacity: 0, duration: 0.88 }, "-=0.25");
     });
     return () => mm.revert();
   }, { scope: root });
 
   return (
-    <section className="hero-section" ref={root} aria-labelledby="hero-title">
-      <div className="site-container">
-        <div className="hero-intro">
-          <h1 id="hero-title" className="hero-title">
-            <span className="hero-title-clip"><span className="hero-title-line">Your entire</span></span>
-            <span className="hero-title-clip"><span className="hero-title-line">practice.<em> In sync.</em></span></span>
-          </h1>
-          <div className="hero-aside">
-            <p className="hero-lead">The everyday tools of dentistry, finally working together. From your first appointment to your final clinical note, Novadontics keeps your practice connected.</p>
-            <div className="hero-actions">
-              <a className="primary-button" href="https://www.novadontics.com/book-a-demo">Book a free demo <ArrowUpRight size={17} aria-hidden="true" /></a>
-              <a className="quiet-link" href="#features">Explore the platform <ArrowDownRight size={17} aria-hidden="true" /></a>
-            </div>
-          </div>
+    <section ref={root} className="hero-section hero-centered" aria-labelledby="hero-title">
+      <div className="hero-ambient" aria-hidden="true" />
+      <div className="hero-grid" aria-hidden="true" />
+
+      <div className="site-container hero-content">
+        <a className="hero-pill" href="#platform">
+          <span>Introducing a more connected practice</span>
+          <ArrowRight size={15} strokeWidth={1.8} aria-hidden="true" />
+        </a>
+
+        <h1 id="hero-title" className="hero-title">
+          <span className="hero-title-line">Your entire practice.</span>
+          <span className="hero-title-line">Finally in sync.</span>
+        </h1>
+
+        <p className="hero-lead">
+          Novadontics brings scheduling, patient communication, clinical imaging,
+          billing and practice management together in one connected cloud platform.
+        </p>
+
+        <div className="hero-actions">
+          <a className="hero-button-secondary" href="#features">Explore the platform</a>
+          <a className="hero-button-primary" href="https://www.novadontics.com/book-a-demo">
+            Book a free demo
+          </a>
         </div>
 
-        <div className="hero-stage">
-          <div className="hero-stage-top">
-            <span>One connected practice</span>
-            <span className="hero-stage-mark">NOVADONTICS</span>
-          </div>
-          <div className="hero-stage-product">
-            <Image
-              src="/assets/novadontics/practice-management.avif"
-              alt="Actual Novadontics practice management dashboard showing practice activity and reporting"
-              width={1290}
-              height={612}
-              sizes="(max-width: 767px) 100vw, 88vw"
-              priority
-            />
-          </div>
-          <div className="hero-stage-bottom">
-            <span><Cloud size={15} aria-hidden="true" /> Cloud-based</span>
-            <span><ShieldCheck size={15} aria-hidden="true" /> HIPAA compliant</span>
-            <span><UsersRound size={15} aria-hidden="true" /> Built for every practice</span>
-          </div>
+        <div className="hero-showcase">
+          <Image
+            src="/assets/novadontics/practice-management.avif"
+            alt="Novadontics practice management dashboard with practice activity and clinical workflows"
+            width={1290}
+            height={612}
+            sizes="(max-width: 767px) 100vw, (max-width: 1400px) 88vw, 1180px"
+            priority
+          />
         </div>
       </div>
-      <AwardsBand />
     </section>
   );
 }
