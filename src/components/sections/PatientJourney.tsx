@@ -18,15 +18,15 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 const steps = [
   {
     id: "appointment",
-    label: "Appointment",
-    supporting: "A clearer start to every visit",
+    label: "Scheduling",
+    supporting: "A clear view of your day",
     detail: "Scheduling and patient information move together.",
     Icon: CalendarDays,
   },
   {
     id: "record",
-    label: "Patient record",
-    supporting: "The complete patient picture",
+    label: "Patient records",
+    supporting: "The whole patient picture",
     detail: "Clinical history and visit context remain connected.",
     Icon: FolderOpen,
   },
@@ -39,14 +39,14 @@ const steps = [
   },
   {
     id: "billing",
-    label: "Billing & payments",
+    label: "Billing",
     supporting: "From treatment to payment",
     detail: "Clinical and administrative work stay in sync.",
     Icon: ReceiptText,
   },
   {
     id: "followup",
-    label: "Follow-up",
+    label: "Patient communication",
     supporting: "Keep the conversation going",
     detail: "Communication continues beyond the visit.",
     Icon: MessageSquareText,
@@ -178,10 +178,10 @@ export function PatientJourney() {
               sizes="186px"
             />
           </div>
-          <p>Every moment of care.<br/><strong>One connected record.</strong></p>
+          <p>Your entire practice.<br/><strong>In one place.</strong></p>
           <span className="pj-center-status">
             <Check size={14} aria-hidden="true" />
-            {connected === 5 ? "All five moments connected" : connected === 0 ? "Ready to connect" : `${connected} of 5 connected`}
+            {connected === 5 ? "All systems connected" : connected === 0 ? "Connecting your practice" : `${connected} of 5 connected`}
           </span>
         </div>
 
