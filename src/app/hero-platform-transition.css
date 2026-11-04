@@ -62,12 +62,12 @@
 .hero-platform-transition .hero-centered .hero-title {
   max-width: 1040px;
   margin: 38px auto 0;
-  font-family: var(--font-inter), Arial, sans-serif;
-  font-weight: 635;
+  font-family: var(--font-manrope), Arial, sans-serif;
+  font-weight: 665;
   font-size: clamp(52px, 5.25vw, 83px);
   line-height: 1.055;
-  letter-spacing: -.064em;
-  color: #222528;
+  letter-spacing: -.054em;
+  color: #242629;
   text-wrap: balance;
 }
 .hero-platform-transition .hero-centered .hero-title-line {
