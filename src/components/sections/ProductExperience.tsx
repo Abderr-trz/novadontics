@@ -106,63 +106,65 @@ export function ProductExperience() {
       className="product-story-section"
       aria-labelledby="product-title"
     >
-      <div className="site-container">
-        <header className="product-story-heading">
-          <h2 id="product-title">
-            A more connected way <span>to work.</span>
-          </h2>
-          <p>
-            Everything your team needs, working together. Explore the real
-            Novadontics tools behind a simpler, more connected practice.
-          </p>
-        </header>
+      <div className="site-container product-story-container">
+        <div className="product-story-shell">
+          <header className="product-story-heading">
+            <span className="product-story-eyebrow">Platform</span>
+            <h2 id="product-title">
+              <span className="product-story-heading-primary">A more connected way to work.</span>
+              <span className="product-story-heading-muted">
+                Scheduling, clinical care and patient conversations — all working together.
+              </span>
+            </h2>
+          </header>
 
-        <div className="product-story-grid">
-          <nav className="product-story-navigation" aria-label="Explore platform workflows">
-            <div className="product-story-navlist">
-              {workflows.map((workflow, index) => (
-                <a
+          <div className="product-story-grid">
+            <nav className="product-story-navigation" aria-label="Explore Novadontics workflows">
+              <div className="product-story-navlist">
+                {workflows.map((workflow, index) => (
+                  <a
+                    key={workflow.id}
+                    href={`#feature-${workflow.id}`}
+                    className={`product-story-navitem ${active === index ? "is-active" : ""}`}
+                    aria-current={active === index ? "location" : undefined}
+                    onClick={() => setActive(index)}
+                  >
+                    {workflow.label}
+                  </a>
+                ))}
+              </div>
+            </nav>
+
+            <div className="product-story-scenes">
+              {workflows.map((workflow) => (
+                <article
+                  id={`feature-${workflow.id}`}
+                  className="product-story-panel"
                   key={workflow.id}
-                  href={`#feature-${workflow.id}`}
-                  className={`product-story-navitem ${active === index ? "is-active" : ""}`}
-                  aria-current={active === index ? "location" : undefined}
-                  onClick={() => setActive(index)}
+                  aria-label={workflow.label}
                 >
-                  {workflow.label}
-                </a>
+                  <h3 className="product-story-statement">
+                    <span>{workflow.headline}</span>{" "}
+                    <span className="product-story-statement-muted">{workflow.summary}</span>
+                  </h3>
+
+                  <figure className={`product-story-media product-story-media--${workflow.id}`}>
+                    <Image
+                      src={workflow.image}
+                      alt={workflow.alt}
+                      width={1290}
+                      height={612}
+                      sizes="(max-width: 959px) 94vw, (max-width: 1440px) 70vw, 1120px"
+                    />
+                  </figure>
+
+                  <a className="product-story-link" href={workflow.link}>
+                    {workflow.linkText}
+                    <ArrowUpRight size={17} aria-hidden="true" />
+                  </a>
+                </article>
               ))}
             </div>
-          </nav>
-
-          <div className="product-story-scenes">
-            {workflows.map((workflow) => (
-              <article
-                id={`feature-${workflow.id}`}
-                className="product-story-panel"
-                key={workflow.id}
-                aria-label={workflow.label}
-              >
-                <h3 className="product-story-statement">
-                  <span>{workflow.headline}</span>{" "}
-                  <span className="product-story-statement-muted">{workflow.summary}</span>
-                </h3>
-
-                <figure className={`product-story-media product-story-media--${workflow.id}`}>
-                  <Image
-                    src={workflow.image}
-                    alt={workflow.alt}
-                    width={1290}
-                    height={612}
-                    sizes="(max-width: 959px) 94vw, (max-width: 1440px) 72vw, 1050px"
-                  />
-                </figure>
-
-                <a className="product-story-link" href={workflow.link}>
-                  {workflow.linkText}
-                  <ArrowUpRight size={17} aria-hidden="true" />
-                </a>
-              </article>
-            ))}
           </div>
         </div>
       </div>
