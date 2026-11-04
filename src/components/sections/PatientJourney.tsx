@@ -63,7 +63,7 @@ export function PatientJourney() {
   useGSAP(() => {
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 960px) and (prefers-reduced-motion: no-preference)", () => {
+    mm.add("(min-width: 960px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)", () => {
       const beats = gsap.utils.toArray<HTMLElement>(".journey-beat");
       const triggers = beats.map((beat, index) =>
         ScrollTrigger.create({
