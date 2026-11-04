@@ -3,52 +3,54 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const journeys = [
+// Genuine Novadontics screenshots. The concise copy is specific to dentistry,
+// rather than borrowing Attio's sales CRM terminology or interface imagery.
+const workflows = [
   {
-    key: "practice",
-    title: "Run your practice",
-    headline: "The whole day, in a single view.",
-    description: "Bring schedules, clinical records, billing and the decisions that shape your practice together. A clearer picture, from the front desk to the operatory.",
+    id: "practice",
+    label: "Practice management",
+    headline: "The whole day, in one place.",
+    summary: "Schedules, charts and billing stay connected, giving every team member a clearer view of the work ahead.",
     image: "/assets/novadontics/practice-management.avif",
-    alt: "Real Novadontics practice management interface",
-    href: "https://www.novadontics.com/platform/practice-management",
-    linkLabel: "Explore practice management",
+    alt: "Actual Novadontics practice management software interface",
+    link: "https://www.novadontics.com/platform/practice-management",
+    linkText: "Explore practice management",
   },
   {
-    key: "engagement",
-    title: "Connect with patients",
-    headline: "Better conversations. Better care.",
-    description: "Keep patient communication, reminders and paperless interactions close to the work your team already does, instead of adding another disconnected tool.",
+    id: "patients",
+    label: "Patient engagement",
+    headline: "A better patient experience.",
+    summary: "From reminders to paperless forms, communication stays close to the patient record and your daily workflow.",
     image: "/assets/novadontics/patient-engagement.avif",
-    alt: "Real Novadontics patient engagement interface",
-    href: "https://www.novadontics.com/the-platform",
-    linkLabel: "Explore patient engagement",
+    alt: "Actual Novadontics patient engagement software interface",
+    link: "https://www.novadontics.com/platform/patient-engagement",
+    linkText: "Explore patient engagement",
   },
   {
-    key: "clinical",
-    title: "See the clinical picture",
-    headline: "The details are already here.",
-    description: "Clinical charting and imaging belong in the same flow as the patient record. See what matters when your team needs it.",
+    id: "imaging",
+    label: "Clinical imaging",
+    headline: "Every clinical detail, in context.",
+    summary: "Keep imaging and clinical information connected to the visit, so the next decision is easier to make.",
     image: "/assets/novadontics/clinical-imaging.avif",
-    alt: "Real Novadontics clinical imaging interface",
-    href: "https://www.novadontics.com/the-platform",
-    linkLabel: "Explore clinical tools",
+    alt: "Actual Novadontics clinical imaging interface",
+    link: "https://www.novadontics.com/platform/clinical-imaging",
+    linkText: "Explore clinical imaging",
   },
   {
-    key: "implant",
-    title: "Plan implant care",
-    headline: "Purpose-built for precision.",
-    description: "Move from evaluation and treatment planning to implant case records and digital logbooks with tools designed for implant dentistry.",
+    id: "implants",
+    label: "Implant dentistry",
+    headline: "Precision in every step.",
+    summary: "Purpose-built implant tools bring treatment planning, case records and digital logbooks into one workflow.",
     image: "/assets/novadontics/implant-management.avif",
-    alt: "Real Novadontics implant management interface",
-    href: "https://www.novadontics.com/platform/implant-dentistry-tools",
-    linkLabel: "Explore implant tools",
+    alt: "Actual Novadontics implant management software screen",
+    link: "https://www.novadontics.com/platform/implant-dentistry-tools",
+    linkText: "Explore implant dentistry",
   },
 ] as const;
 
@@ -59,26 +61,36 @@ export function ProductExperience() {
   useGSAP(() => {
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 900px)", () => {
+    mm.add("(min-width: 960px)", () => {
       const panels = gsap.utils.toArray<HTMLElement>(".product-story-panel");
-      panels.forEach((panel, index) => {
+      const triggers = panels.map((panel, index) =>
         ScrollTrigger.create({
           trigger: panel,
-          start: "top 45%",
-          end: "bottom 45%",
+          start: "top 48%",
+          end: "bottom 48%",
           onEnter: () => setActive(index),
           onEnterBack: () => setActive(index),
-        });
-      });
+        }),
+      );
+      return () => triggers.forEach((trigger) => trigger.kill());
     });
 
-    mm.add("(min-width: 900px) and (prefers-reduced-motion: no-preference)", () => {
-      gsap.utils.toArray<HTMLElement>(".product-shot").forEach((shot) => {
-        gsap.fromTo(shot,
-          { autoAlpha: .68, y: 46, scale: .975 },
+    mm.add("(min-width: 960px) and (prefers-reduced-motion: no-preference)", () => {
+      const media = gsap.utils.toArray<HTMLElement>(".product-story-media");
+      media.forEach((element) => {
+        gsap.fromTo(
+          element.querySelector("img"),
+          { y: 32, opacity: 0.78 },
           {
-            autoAlpha: 1, y: 0, scale: 1, ease: "none",
-            scrollTrigger: { trigger: shot, start: "top 95%", end: "top 48%", scrub: .6 },
+            y: 0,
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: element,
+              start: "top 94%",
+              end: "top 49%",
+              scrub: 0.55,
+            },
           },
         );
       });
@@ -88,54 +100,67 @@ export function ProductExperience() {
   }, { scope: root });
 
   return (
-    <section id="features" className="product-section product-story-section" ref={root} aria-labelledby="product-title">
+    <section
+      id="features"
+      ref={root}
+      className="product-story-section"
+      aria-labelledby="product-title"
+    >
       <div className="site-container">
-        <div className="product-story-heading">
-          <h2 id="product-title">A more connected way <span>to work.</span></h2>
-          <p>One thoughtfully integrated platform, supporting the entire patient journey from your first appointment through ongoing care.</p>
-        </div>
+        <header className="product-story-heading">
+          <h2 id="product-title">
+            A more connected way <span>to work.</span>
+          </h2>
+          <p>
+            Everything your team needs, working together. Explore the real
+            Novadontics tools behind a simpler, more connected practice.
+          </p>
+        </header>
 
         <div className="product-story-grid">
-          <nav className="product-story-navigation" aria-label="Explore Novadontics workflows">
-            <p>Explore the platform</p>
+          <nav className="product-story-navigation" aria-label="Explore platform workflows">
             <div className="product-story-navlist">
-              {journeys.map((journey, i) => (
+              {workflows.map((workflow, index) => (
                 <a
-                  href={`#feature-${journey.key}`}
-                  key={journey.key}
-                  className={`product-story-navitem ${active === i ? "is-active" : ""}`}
-                  aria-current={active === i ? "step" : undefined}
-                  onClick={() => setActive(i)}
+                  key={workflow.id}
+                  href={`#feature-${workflow.id}`}
+                  className={`product-story-navitem ${active === index ? "is-active" : ""}`}
+                  aria-current={active === index ? "location" : undefined}
+                  onClick={() => setActive(index)}
                 >
-                  {journey.title}
+                  {workflow.label}
                 </a>
               ))}
             </div>
           </nav>
 
           <div className="product-story-scenes">
-            {journeys.map((journey) => (
-              <article className="product-story-panel" id={`feature-${journey.key}`} key={journey.key}>
-                <div className="product-story-copy">
-                  <h3>{journey.headline}</h3>
-                  <p>{journey.description}</p>
-                  <a href={journey.href} className="product-story-link">
-                    {journey.linkLabel} <ArrowUpRight size={17} aria-hidden="true" />
-                  </a>
-                </div>
-                <figure className="product-shot">
-                  <div className="product-shot-bar">
-                    <span className="product-shot-dots" aria-hidden="true"><i /><i /><i /></span>
-                    <span>Novadontics</span>
-                  </div>
+            {workflows.map((workflow) => (
+              <article
+                id={`feature-${workflow.id}`}
+                className="product-story-panel"
+                key={workflow.id}
+                aria-label={workflow.label}
+              >
+                <h3 className="product-story-statement">
+                  <span>{workflow.headline}</span>{" "}
+                  <span className="product-story-statement-muted">{workflow.summary}</span>
+                </h3>
+
+                <figure className="product-story-media">
                   <Image
-                    src={journey.image}
-                    alt={journey.alt}
+                    src={workflow.image}
+                    alt={workflow.alt}
                     width={1290}
                     height={612}
-                    sizes="(max-width: 899px) 94vw, 65vw"
+                    sizes="(max-width: 959px) 94vw, (max-width: 1440px) 70vw, 1000px"
                   />
                 </figure>
+
+                <a className="product-story-link" href={workflow.link}>
+                  {workflow.linkText}
+                  <ArrowUpRight size={17} aria-hidden="true" />
+                </a>
               </article>
             ))}
           </div>
