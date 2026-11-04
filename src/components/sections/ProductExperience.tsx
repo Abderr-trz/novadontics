@@ -58,8 +58,8 @@ export function ProductExperience() {
     <section className="product-section" id="features" aria-labelledby="product-title">
       <div className="site-container">
         <div className="product-heading">
-          <h2 id="product-title">One place for<br /><em>what matters.</em></h2>
-          <p>Everything your team needs to move through the day with confidence, beautifully connected within one platform.</p>
+          <h2 id="product-title">From the front desk.<br /><em>To every detail.</em></h2>
+          <p>Discover the real Novadontics tools behind a more connected day. Choose a workflow to explore the platform.</p>
         </div>
         <div className="product-layout">
           <div className="feature-list" role="tablist" aria-label="Explore Novadontics features" aria-orientation="vertical">
