@@ -20,14 +20,14 @@ Do NOT revert this centered hero to the former asymmetric layout during later Co
 
 ## Page composition
 1. Hero: Attio-like centered navigation and centered type, minimal pill and buttons, product screenshot below the fold, faint ambient glow. No awards bar in hero.
-2. Connected practice: one dark visual chapter demonstrating five workflows converging into the real product. GSAP ScrollTrigger on desktop, static simplified mobile.
+2. Connected practice: light Attio-like four-window composition: large authentic Novadontics practice-management screenshot centered; patient-engagement upper-left, clinical-imaging lower-left on charcoal window, implant-management right. GSAP scroll-controlled staggered entrance on large desktop; static responsive grid on tablet/mobile. Use the genuine /public/assets/novadontics images; never use Attio interfaces.
 3. Product experience: four accessible tabs with big real product screenshots.
 4. Who it's for: verified practice logos, editorial photo, clean unnumbered link rows.
 5. Closing: confident type and a demo CTA.
 
 ## Motion
 - Hero entrance: staggered lines, 0.65–1.1 second ease. No permanent blocking overlays.
-- Connected platform: reversible pinned/scrubbed timeline ONLY when viewport >=1024px and height >=700px and reduced motion is off.
+- Connected platform: reversible pinned/scrubbed GSAP layered-window reveal ONLY when viewport >=1180px and height >=780px and reduced motion is off. Each image appears separately, not a single flattened collage. Mobile/tablet shows visible static grid.
 - Product tabs: short nonblocking image reveal; use the same panel with proper ARIA and keyboard arrows.
 - No scroll hijacking; avoid multiple complex pins.
 - Mobile and reduced-motion users should see complete content without JavaScript choreography.
@@ -41,3 +41,6 @@ Do NOT revert this centered hero to the former asymmetric layout during later Co
 
 ## Developer notes
 All refactor work is on design-refinement-editorial. Do not overwrite production/main until reviewed. The primary design styles live in src/app/globals.css. Navigation keeps authentic branding. Latest preview environment should be checked to confirm this branch builds correctly. All customer claims require verification against the official Novadontics site.
+
+## November 4 — Multi-screen platform implementation
+The user selected the Attio multi-window screenshot as composition reference for the section after the hero. Implemented in `src/components/sections/ConnectedPlatform.tsx` and `src/app/platform-showcase.css`, loaded by `src/app/layout.tsx`. Subsequent product section typography/colors were harmonized in `src/app/globals.css` and `src/components/sections/ProductExperience.tsx`. No main branch changes. Build passed in Vercel preview. Visual QA remains blocked because Vercel Deployment Protection redirects TinyFish to login; authenticated browser verification is still required before merging. Ask user to connect an authorized Vercel account or use a TinyFish browser profile configured at https://agent.tinyfish.ai/profiles, then inspect both 1440px and 390px layouts and scroll forward/backward.
