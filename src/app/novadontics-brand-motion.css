@@ -7,6 +7,14 @@
   --novadontics-slate: #697c7d;
   --novadontics-ink: #222629;
   --novadontics-warm-canvas: #fcfaf2;
+  /* Consistent palette tokens shared across all 5 homepage chapters. */
+  --nov-yellow: #fff300;
+  --nov-orange: #ec8624;
+  --nov-cold-orange: #f3d7b3;
+  --nov-sand: #f7f2e9;
+  --nov-slate: #697c7d;
+  --nov-ink: #242629;
+  --nov-line: #e8e2d9;
 }
 body { background: #fff; color: var(--novadontics-ink); }
 :focus-visible { outline-color: var(--novadontics-orange); }
