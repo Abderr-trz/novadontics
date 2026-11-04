@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight, CalendarDays, Check, FolderOpen, ScanLine, ReceiptText, MessageSquareText } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,197 +10,236 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /**
- * Product imagery is authentic Novadontics media. The order below tells an
- * illustrative care journey, not the history of an actual patient.
+ * Inspired by the motion in the supplied Novadontics reference recording:
+ * an anchored 5-to-1 diagram, neutral paths that draw orange as the user scrolls,
+ * nodes moving from pending to connected, and one central shared patient record.
+ * This illustrates a workflow, rather than depicting real patient information.
  */
-const moments = [
+const steps = [
   {
     id: "appointment",
-    name: "Appointment",
-    title: "It starts before they arrive.",
-    description: "A scheduled visit and the patient's information belong in the same practice workflow. Your team begins with the context it needs.",
-    image: "https://cdn.prod.website-files.com/6a3c0959f5ad49988da23e13/6a43fc02a9a03a2c7c5d1605_d4c41bf325eb4634ae9f31a9f932d25e_calendar.avif",
-    alt: "Official Novadontics scheduling and calendar interface",
+    label: "Appointment",
+    supporting: "A clearer start to every visit",
+    detail: "Scheduling and patient information move together.",
+    Icon: CalendarDays,
   },
   {
     id: "record",
-    name: "Patient record",
-    title: "The full picture, at every chair.",
-    description: "Clinical notes, charting and treatment plans stay tied to the patient record, keeping the team aligned from visit to visit.",
-    image: "/assets/novadontics/practice-management.avif",
-    alt: "Official Novadontics practice management product screenshot",
+    label: "Patient record",
+    supporting: "The complete patient picture",
+    detail: "Clinical history and visit context remain connected.",
+    Icon: FolderOpen,
   },
   {
     id: "imaging",
-    name: "Clinical imaging",
-    title: "See what matters, in context.",
-    description: "Review imaging alongside clinical information, without breaking the flow of care or hunting through disconnected tools.",
-    image: "/assets/novadontics/clinical-imaging.avif",
-    alt: "Official Novadontics clinical imaging product screenshot",
+    label: "Clinical imaging",
+    supporting: "Clarity at the point of care",
+    detail: "Images and clinical records belong in one workflow.",
+    Icon: ScanLine,
   },
   {
     id: "billing",
-    name: "Billing & payments",
-    title: "Care and operations stay in sync.",
-    description: "From treatment to billing and patient payments, the administrative side stays connected to the same practice workflow.",
-    image: "https://cdn.prod.website-files.com/6a3c0959f5ad49988da23e13/6a49340368be0cc0c1ace0e1_portal.avif",
-    alt: "Official Novadontics patient portal and payment experience visual",
+    label: "Billing & payments",
+    supporting: "From treatment to payment",
+    detail: "Clinical and administrative work stay in sync.",
+    Icon: ReceiptText,
   },
   {
     id: "followup",
-    name: "Follow-up",
-    title: "The relationship goes beyond the visit.",
-    description: "Patient communication, reminders and the next appointment stay part of one continuous experience.",
-    image: "/assets/novadontics/patient-engagement.avif",
-    alt: "Official Novadontics patient engagement product visual",
+    label: "Follow-up",
+    supporting: "Keep the conversation going",
+    detail: "Communication continues beyond the visit.",
+    Icon: MessageSquareText,
   },
+] as const;
+
+// Endpoints match the percentages defined in patient-journey.css.
+// Path layout is symmetric but each connection draws independently.
+const connectionPaths = [
+  "M372 145 H399 Q432 145 432 181 V260 Q432 282 452 282",
+  "M828 145 H801 Q768 145 768 181 V260 Q768 282 748 282",
+  "M372 403 H402 Q432 403 432 370 V324 Q432 305 452 305",
+  "M828 403 H798 Q768 403 768 370 V324 Q768 305 748 305",
+  "M600 374 V465",
 ] as const;
 
 export function PatientJourney() {
   const root = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(0);
+  const canvas = useRef<HTMLDivElement>(null);
+  const timeline = useRef<gsap.core.Timeline | null>(null);
+  const [connected, setConnected] = useState(0);
 
   useGSAP(() => {
-    const mm = gsap.matchMedia();
+    const media = gsap.matchMedia();
 
-    mm.add("(min-width: 960px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)", () => {
-      const beats = gsap.utils.toArray<HTMLElement>(".journey-beat");
-      const triggers = beats.map((beat, index) =>
-        ScrollTrigger.create({
-          trigger: beat,
-          start: "top 58%",
-          end: "bottom 58%",
-          onEnter: () => setActive(index),
-          onEnterBack: () => setActive(index),
-        }),
-      );
+    media.add("(min-width: 1024px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)", () => {
+      const stage = canvas.current;
+      if (!stage) return;
 
-      const progress = gsap.fromTo(
-        ".journey-progress-fill",
-        { scaleY: 0, transformOrigin: "top center" },
-        {
-          scaleY: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".journey-beats",
-            start: "top 58%",
-            end: "bottom 58%",
-            scrub: 0.5,
-            invalidateOnRefresh: true,
+      const paths = Array.from(stage.querySelectorAll<SVGPathElement>(".pj-wire-active"));
+      const nodes = Array.from(stage.querySelectorAll<HTMLButtonElement>(".pj-node"));
+
+      paths.forEach((path) => {
+        const length = path.getTotalLength();
+        gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+      });
+      gsap.set(nodes, { opacity: 0.72, y: 9, scale: 0.985 });
+      gsap.set(".pj-center-card", { scale: 0.975 });
+
+      const tl = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: {
+          trigger: stage,
+          start: "top top+=86",
+          end: () => "+=" + Math.round(window.innerHeight * 1.85),
+          scrub: 0.7,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const next = Math.min(5, Math.floor(self.progress * 5 + 0.4));
+            setConnected((previous) => previous === next ? previous : next);
           },
         },
-      );
+      });
+
+      paths.forEach((path, index) => {
+        tl.to(path, { strokeDashoffset: 0, duration: 0.9 }, index);
+        tl.to(nodes[index], { opacity: 1, y: 0, scale: 1, duration: 0.65, ease: "power2.out" }, index + 0.14);
+      });
+      tl.to(".pj-center-card", { scale: 1, duration: 0.6, ease: "power2.out" }, 4.38);
+      // Ensure each scroll stage lasts equally, including the final connection.
+      tl.to({}, { duration: 0.12 }, 4.9);
+      timeline.current = tl;
 
       return () => {
-        triggers.forEach((trigger) => trigger.kill());
-        progress.scrollTrigger?.kill();
-        progress.kill();
+        timeline.current = null;
+        tl.scrollTrigger?.kill();
+        tl.kill();
       };
     });
 
-    return () => mm.revert();
+    return () => media.revert();
   }, { scope: root });
 
+  function focusStep(index: number) {
+    const trigger = timeline.current?.scrollTrigger;
+    if (!trigger) {
+      setConnected(index + 1);
+      return;
+    }
+    // Native smooth scroll to the chosen connection; no wheel hijacking.
+    const progress = Math.min(0.98, (index + 0.82) / steps.length);
+    window.scrollTo({
+      top: trigger.start + (trigger.end - trigger.start) * progress,
+      behavior: "smooth",
+    });
+  }
+
   return (
-    <section id="journey" ref={root} className="journey-section" aria-labelledby="journey-heading">
+    <section id="journey" className="journey-section" ref={root} aria-labelledby="journey-heading">
       <div className="site-container journey-intro">
         <div className="journey-intro-main">
-          <span className="journey-eyebrow">The connected patient record</span>
+          <span className="journey-eyebrow">The connected patient journey</span>
           <h2 id="journey-heading">
             One patient journey.
             <span>One connected record.</span>
           </h2>
         </div>
         <div className="journey-intro-side">
-          <p>Good care is continuous. Your software should be, too. Follow the moments that connect one visit to the next.</p>
-          <a href="https://www.novadontics.com/the-platform">
-            Explore the platform <ArrowUpRight size={16} aria-hidden="true" />
-          </a>
+          <p>Five important moments in a patient's experience. One continuous flow for the practice.</p>
+          <span className="journey-scroll-hint"><ArrowDown size={15} aria-hidden="true" /> Scroll to connect the moments</span>
         </div>
       </div>
 
-      <div className="journey-story">
-        <div className="site-container journey-story-grid">
-          <div className="journey-showcase" aria-label="Authentic Novadontics product screens along the patient journey">
-            <div className="journey-showcase-inner">
-              <div className="journey-showcase-top">
-                <span className="journey-showcase-label">
-                  <span className="journey-showcase-signal" aria-hidden="true" />
-                  ONE CONNECTED RECORD
-                </span>
-                <span className="journey-counter">{String(active + 1).padStart(2, "0")} / 05</span>
-              </div>
-              <div className="journey-screen-stage">
-                <div className="journey-screen-glow" aria-hidden="true" />
-                {moments.map((moment, index) => (
-                  <div
-                    className={`journey-screen-layer ${index === active ? "is-active" : ""}`}
-                    key={moment.id}
-                    aria-hidden={index !== active}
-                  >
-                    <Image
-                      src={moment.image}
-                      alt={moment.alt}
-                      width={1290}
-                      height={612}
-                      sizes="(max-width: 959px) 90vw, (max-width: 1440px) 52vw, 700px"
-                      priority={index === 0}
-                    />
-                  </div>
-                ))}
-              </div>
-              <div className="journey-showcase-bottom">
-                <span>{moments[active].name}</span>
-                <span>One practice. One patient record.</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="journey-beats">
-            <span className="journey-spine" aria-hidden="true">
-              <span className="journey-progress-fill" />
-            </span>
-            {moments.map((moment, index) => (
-              <article
-                id={`journey-${moment.id}`}
-                key={moment.id}
-                className={`journey-beat ${index === active ? "is-active" : ""}`}
-                aria-label={moment.name}
-              >
-                <span className="journey-beat-dot" aria-hidden="true" />
-                <div className="journey-beat-index">
-                  <span>{String(index + 1).padStart(2, "0")} / 05</span>
-                  <span>{moment.name}</span>
-                </div>
-                <h3>{moment.title}</h3>
-                <p>{moment.description}</p>
-              </article>
-            ))}
-          </div>
+      <div className="pj-map" ref={canvas} aria-label="Interactive illustration of five care workflows connected to one patient record">
+        <div className="pj-map-topline">
+          <span className="pj-map-eyebrow"><span className="pj-map-dot" aria-hidden="true" /> THE PRACTICE, IN SYNC</span>
+          <span className="pj-map-progress">{String(connected).padStart(2, "0")} / 05 connected</span>
         </div>
-        <p className="site-container journey-disclaimer">
-          Illustrative patient journey using authentic Novadontics product visuals.
-        </p>
-      </div>
 
-      <div className="site-container journey-mobile-story">
-        {moments.map((moment, index) => (
-          <article className="journey-mobile-beat" key={moment.id}>
-            <span className="journey-mobile-index">{String(index + 1).padStart(2, "0")} / 05 — {moment.name}</span>
-            <h3>{moment.title}</h3>
-            <p>{moment.description}</p>
+        <svg className="pj-connections" viewBox="0 0 1200 620" preserveAspectRatio="none" aria-hidden="true">
+          {connectionPaths.map((path, index) => (
+            <g key={index}>
+              <path d={path} className="pj-wire-base" />
+              <path d={path} className="pj-wire-active" />
+            </g>
+          ))}
+        </svg>
+
+        <div className={`pj-center-card ${connected === steps.length ? "is-complete" : ""}`}>
+          <div className="pj-center-brand">
             <Image
-              src={moment.image}
-              alt={moment.alt}
-              width={900}
-              height={430}
-              sizes="(max-width: 959px) 88vw, 450px"
+              src="/assets/novadontics/LogoColorAndGray.svg"
+              alt="Novadontics"
+              width={186}
+              height={40}
+              sizes="186px"
             />
-          </article>
-        ))}
-        <p className="journey-mobile-disclaimer">
-          Illustrative patient journey using authentic Novadontics product visuals.
-        </p>
+          </div>
+          <p>Every moment of care.<br/><strong>One connected record.</strong></p>
+          <span className="pj-center-status">
+            <Check size={14} aria-hidden="true" />
+            {connected === 5 ? "All five moments connected" : connected === 0 ? "Ready to connect" : `${connected} of 5 connected`}
+          </span>
+        </div>
+
+        {steps.map((step, index) => {
+          const Icon = step.Icon;
+          const complete = index < connected;
+          return (
+            <button
+              type="button"
+              className={`pj-node pj-node--${step.id} ${complete ? "is-connected" : ""}`}
+              key={step.id}
+              onClick={() => focusStep(index)}
+              aria-label={`${step.label}: ${step.supporting}. ${complete ? "Connected" : "Select to explore"}`}
+            >
+              <span className="pj-node-top">
+                <Icon size={21} strokeWidth={1.7} aria-hidden="true" />
+                <span className="pj-node-status">
+                  {complete ? <><Check size={13} strokeWidth={1.8} aria-hidden="true" /> Connected</> : String(index + 1).padStart(2, "0")}
+                </span>
+              </span>
+              <strong>{step.label}</strong>
+              <span className="pj-node-description">{step.supporting}</span>
+            </button>
+          );
+        })}
+
+        <span className="pj-map-caption">An illustration of connected clinical and administrative workflows</span>
+      </div>
+
+      <div className="site-container pj-epilogue">
+        <p>From booking to follow-up, every detail belongs to the same story.</p>
+        <a href="https://www.novadontics.com/the-platform">
+          Discover the platform <ArrowUpRight size={16} aria-hidden="true" />
+        </a>
+      </div>
+
+      <div className="site-container pj-mobile-flow" aria-label="The five connected steps of the patient journey">
+        <div className="pj-mobile-center">
+          <Image src="/assets/novadontics/LogoColorAndGray.svg" width={156} height={35} alt="Novadontics" />
+          <span>One connected patient record</span>
+        </div>
+        {steps.map((step, index) => {
+          const Icon = step.Icon;
+          return (
+            <article className="pj-mobile-node" key={step.id}>
+              <span className="pj-mobile-node-icon"><Icon size={20} aria-hidden="true" /></span>
+              <div>
+                <span className="pj-mobile-number">{String(index + 1).padStart(2, "0")} / 05</span>
+                <h3>{step.label}</h3>
+                <p>{step.detail}</p>
+              </div>
+              <Check size={17} className="pj-mobile-check" aria-hidden="true" />
+            </article>
+          );
+        })}
+        <a className="pj-mobile-link" href="https://www.novadontics.com/the-platform">
+          Explore the connected platform <ArrowUpRight size={15} aria-hidden="true" />
+        </a>
       </div>
     </section>
   );
