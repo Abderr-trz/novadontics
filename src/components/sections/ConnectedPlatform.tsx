@@ -58,7 +58,7 @@ export function ConnectedPlatform() {
               alt="Actual Novadontics practice management dashboard"
               width={1290}
               height={612}
-              sizes="(max-width: 767px) 94vw, (max-width: 1179px) 88vw, 74vw"
+              sizes="(max-width: 767px) 94vw, (max-width: 1179px) 88vw, (max-width: 1440px) 68vw, 950px"
               priority
             />
           </div>
@@ -77,7 +77,7 @@ export function ConnectedPlatform() {
                 alt={screen.alt}
                 width={screen.width}
                 height={screen.height}
-                sizes="(max-width: 767px) 90vw, (max-width: 1179px) 44vw, 25vw"
+                sizes="(max-width: 767px) 90vw, (max-width: 1179px) 44vw, (max-width: 1440px) 25vw, 340px"
               />
             </div>
           </figure>
