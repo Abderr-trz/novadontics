@@ -77,3 +77,16 @@ Verified official links:
 - https://www.novadontics.com/book-a-demo
 
 Before merging, inspect the protected Vercel preview at 1440x900 and 390x844 in an authorized browser. Check the dark journey's five-stage scrub, keyboard-accessible stage buttons, portrait image load, customer quote overflow, onboarding timeline and mobile static flow. Run lint/build. Never merge without explicit user approval.
+
+
+## November 4 — Product Experience reference refinement (user Attio screenshots)
+
+User explicitly selected three Attio screenshots showing a left-hand sticky chapter index, orange-free original Attio blue rail, spacious editorial copy at right and authentic interface screenshots displayed directly without fake surrounding browser-window UI. Novadontics adaptation keeps four REAL dental workflows (practice management, patient engagement, clinical imaging, implant dentistry), NOT Attio sales/CRM copy.
+
+Implementation:
+- `src/components/sections/ProductExperience.tsx` rewritten for compact editorial header (main statement + muted follow-up in one h3), sticky left nav with URL fragment links, active state synchronized to down/up scroll through GSAP ScrollTrigger, authentic local product images.
+- `src/app/product-story.css` replaced with a refined layout: H2 max 63px desktop, individual feature statement max 37px; better controlled description, no fake browser chrome, images on borderless light-gray staging surfaces with soft drop shadows, gray #697C7D and orange #EC8624 official brand colors.
+- Only the ProductExperience component and its stylesheet were edited in this refinement; no other homepage component changed.
+- Latest Vercel deployment for these commits: `902ac61fde6f054df5aedd194a2153ead27a1aac`, status READY.
+- TinyFish verified the real rendered desktop section: four genuine feature images rendered; sticky nav and active indicator worked scrolling forward/back; no clipping, broken images, overlap or horizontal overflow detected. Mobile viewport, exact pixel measurements, and performance metrics were not available and remain to be checked before merge.
+- Keep branch `design-refinement-editorial` separate from main until explicit approval.
