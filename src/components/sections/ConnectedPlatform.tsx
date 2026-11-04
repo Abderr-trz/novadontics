@@ -5,82 +5,183 @@ import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight } from "lucide-react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const workflows = [
-  "Scheduling",
-  "Patient records",
-  "Clinical imaging",
-  "Billing & claims",
-  "Patient communication",
-];
+/**
+ * All four images are actual Novadontics assets bundled in /public/assets/novadontics.
+ * The layered browser frames are decorative; the screenshots themselves are unaltered.
+ */
+const screens = [
+  {
+    kind: "patient",
+    label: "Patient engagement",
+    src: "/assets/novadontics/patient-engagement.avif",
+    alt: "Novadontics patient engagement software interface",
+    width: 720,
+    height: 480,
+  },
+  {
+    kind: "clinical",
+    label: "Clinical imaging",
+    src: "/assets/novadontics/clinical-imaging.avif",
+    alt: "Novadontics clinical imaging interface",
+    width: 740,
+    height: 500,
+  },
+  {
+    kind: "implant",
+    label: "Implant workflows",
+    src: "/assets/novadontics/implant-management.avif",
+    alt: "Novadontics implant management and case workflow interface",
+    width: 720,
+    height: 500,
+  },
+] as const;
+
+function WindowDots() {
+  return (
+    <span className="platform-window-dots" aria-hidden="true">
+      <span />
+      <span />
+      <span />
+    </span>
+  );
+}
 
 export function ConnectedPlatform() {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(() => {
     const mm = gsap.matchMedia();
-    mm.add("(min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)", () => {
-      gsap.set(".merge-preview", { autoAlpha: 0, scale: 0.94, clipPath: "inset(14% 14% round 12px)" });
-      gsap.set(".merge-message", { autoAlpha: 0, y: 18 });
-      const timeline = gsap.timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: {
-          trigger: root.current,
-          start: "top top+=64",
-          end: "+=110%",
-          scrub: 0.7,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-      timeline
-        .to(".merge-item", {
-          x: (i: number) => [80, 38, 0, -38, -80][i],
-          y: (i: number) => [92, 48, 0, -48, -92][i],
-          scale: 0.86,
-          opacity: 0,
-          stagger: 0.035,
-          duration: 0.48,
-        }, 0.08)
-        .to(".merge-preview", {
-          autoAlpha: 1,
-          scale: 1,
-          clipPath: "inset(0% 0% round 12px)",
-          duration: 0.48,
-        }, 0.40)
-        .to(".merge-message", { autoAlpha: 1, y: 0, duration: 0.24 }, 0.72)
-        .to({}, { duration: 0.18 });
-    });
+
+    mm.add(
+      {
+        desktop: "(min-width: 1180px) and (min-height: 780px)",
+        reduce: "(prefers-reduced-motion: reduce)",
+      },
+      (context) => {
+        if (!context.conditions?.desktop || context.conditions?.reduce) return;
+
+        const stage = root.current?.querySelector(".platform-composition");
+        if (!stage) return;
+
+        // Scrolling controls a single, reversible sequence; no autoscroll or hijacking.
+        const timeline = gsap.timeline({
+          defaults: { ease: "none" },
+          scrollTrigger: {
+            trigger: stage,
+            start: "top 126px",
+            end: "+=90%",
+            pin: true,
+            scrub: 0.85,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+
+        timeline
+          .fromTo(
+            ".platform-main-window",
+            { y: 62, scale: 0.925, autoAlpha: 0.45 },
+            { y: 0, scale: 1, autoAlpha: 1, duration: 0.55 },
+            0,
+          )
+          .fromTo(
+            ".platform-patient",
+            { x: 170, y: 95, scale: 0.78, autoAlpha: 0 },
+            { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.56 },
+            0.13,
+          )
+          .fromTo(
+            ".platform-clinical",
+            { x: 120, y: -30, scale: 0.83, autoAlpha: 0 },
+            { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.54 },
+            0.21,
+          )
+          .fromTo(
+            ".platform-implant",
+            { x: -150, y: 60, scale: 0.8, autoAlpha: 0 },
+            { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.54 },
+            0.29,
+          )
+          .to(".platform-main-window", { y: -7, duration: 0.22 }, 0.72)
+          .to(".platform-patient", { x: -7, y: -5, duration: 0.22 }, 0.72)
+          .to(".platform-clinical", { x: -9, y: 8, duration: 0.22 }, 0.72)
+          .to(".platform-implant", { x: 6, y: -5, duration: 0.22 }, 0.72)
+          .to({}, { duration: 0.12 });
+      },
+    );
+
     return () => mm.revert();
   }, { scope: root });
 
   return (
-    <section id="platform" ref={root} className="connection-section" aria-labelledby="connection-title">
-      <div className="site-container connection-shell">
-        <div className="connection-copy">
-          <h2 id="connection-title">Five systems.<br /><em>One seamless day.</em></h2>
-          <p>Every appointment touches more than a calendar. Novadontics brings the moving parts of your practice into one connected experience, from booking to billing.</p>
-          <div className="connection-workflows" aria-label="Connected workflows">
-            {workflows.map((workflow) => <span key={workflow}>{workflow}</span>)}
+    <section
+      id="platform"
+      className="platform-showcase"
+      ref={root}
+      aria-labelledby="platform-showcase-title"
+    >
+      <div className="platform-showcase-glow" aria-hidden="true" />
+      <div className="platform-showcase-lines" aria-hidden="true" />
+
+      <div className="site-container platform-showcase-heading">
+        <h2 id="platform-showcase-title">
+          One platform. <span>Every part of your practice.</span>
+        </h2>
+        <p>
+          One connected workspace for the tools your team uses every day — from
+          patient communication to imaging and implant care.
+        </p>
+      </div>
+
+      <div
+        className="platform-composition"
+        aria-label="Four genuine Novadontics software screens shown together"
+      >
+        <figure className="platform-main-window">
+          <div className="platform-window-chrome">
+            <WindowDots />
+            <span className="platform-window-heading">Practice management</span>
           </div>
-          <a href="#features" className="connection-link">See how it works <ArrowUpRight size={17} aria-hidden="true" /></a>
-        </div>
-        <div className="merge-stage">
-          <div className="merge-stack" aria-hidden="true">
-            {workflows.map((item) => <div className="merge-item" key={item}><span>{item}</span><span className="merge-item-line" /></div>)}
+          <div className="platform-main-image">
+            <Image
+              src="/assets/novadontics/practice-management.avif"
+              alt="Novadontics practice management dashboard"
+              width={1290}
+              height={612}
+              sizes="(max-width: 767px) 94vw, (max-width: 1179px) 88vw, 74vw"
+            />
           </div>
-          <div className="merge-preview">
-            <div className="merge-image">
-              <Image src="/assets/novadontics/practice-management.avif" alt="Authentic Novadontics practice management product interface" width={1290} height={612} sizes="(max-width: 1023px) 90vw, 48vw" />
+          <figcaption className="platform-main-footer">
+            <span className="platform-status-dot" />
+            Connected practice management
+          </figcaption>
+        </figure>
+
+        {screens.map((screen) => (
+          <figure
+            className={`platform-floating-window platform-${screen.kind}`}
+            key={screen.kind}
+          >
+            <div className="platform-window-chrome">
+              <WindowDots />
             </div>
-            <div className="merge-message"><span className="merge-success-dot" />One connected workspace</div>
-          </div>
-          <div className="merge-stage-caption">From disconnected steps to one complete patient journey.</div>
-        </div>
+            <figcaption className="platform-floating-label">
+              {screen.label}
+            </figcaption>
+            <div className="platform-floating-image">
+              <Image
+                src={screen.src}
+                alt={screen.alt}
+                width={screen.width}
+                height={screen.height}
+                sizes="(max-width: 767px) 90vw, (max-width: 1179px) 44vw, 25vw"
+              />
+            </div>
+          </figure>
+        ))}
       </div>
     </section>
   );
