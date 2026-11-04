@@ -14,8 +14,8 @@ const journey = [
     name: "Appointment",
     action: "A visit begins with a booking.",
     detail: "The schedule and the patient record live in the same practice workflow, so the team starts with context.",
-    image: "/assets/novadontics/practice-management.avif",
-    alt: "Authentic Novadontics practice management and scheduling screen",
+    image: "https://cdn.prod.website-files.com/6a3c0959f5ad49988da23e13/6a43fc02a9a03a2c7c5d1605_d4c41bf325eb4634ae9f31a9f932d25e_calendar.avif",
+    alt: "Official Novadontics scheduling and calendar product visual",
     tone: "schedule",
   },
   {
@@ -38,8 +38,8 @@ const journey = [
     name: "Billing",
     action: "From treatment to the front desk.",
     detail: "Clinical and administrative work is connected with the practice’s billing and claims workflow.",
-    image: "/assets/novadontics/practice-management.avif",
-    alt: "Authentic Novadontics practice management dashboard",
+    image: "https://cdn.prod.website-files.com/6a3c0959f5ad49988da23e13/6a49340368be0cc0c1ace0e1_portal.avif",
+    alt: "Official Novadontics patient portal and payment workflow visual",
     tone: "billing",
   },
   {
