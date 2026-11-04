@@ -1,5 +1,13 @@
+"use client";
+
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const audiences = [
   { title: "Independent practices", text: "A clear, connected foundation for the everyday work of running a dental practice.", href: "https://www.novadontics.com/solutions/independent-practices" },
@@ -8,6 +16,35 @@ const audiences = [
 ];
 
 export function PracticeAndClosing() {
+  const closing = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 900px) and (prefers-reduced-motion: no-preference)", () => {
+      gsap.fromTo(".closing-orbit",
+        { yPercent: -10, scale: .85, autoAlpha: .32 },
+        {
+          yPercent: 4, scale: 1, autoAlpha: .9, ease: "none",
+          scrollTrigger: {
+            trigger: closing.current,
+            start: "top bottom",
+            end: "bottom 43%",
+            scrub: .9,
+          },
+        },
+      );
+      gsap.from(".closing-content h2", {
+        y: 34, autoAlpha: 0, duration: .9, ease: "power3.out",
+        scrollTrigger: {
+          trigger: closing.current,
+          start: "top 78%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+    return () => mm.revert();
+  }, { scope: closing });
+
   return (
     <>
       <section id="solutions" className="audience-section" aria-labelledby="audience-title">
@@ -31,7 +68,8 @@ export function PracticeAndClosing() {
           </div>
         </div>
       </section>
-      <section className="closing-section" aria-labelledby="closing-title">
+      <section className="closing-section" ref={closing} aria-labelledby="closing-title">
+        <div className="closing-orbit" aria-hidden="true" />
         <div className="site-container">
           <div className="closing-content">
             <h2 id="closing-title">Less administration.<br /><em>More room for care.</em></h2>
