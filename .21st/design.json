@@ -1,0 +1,193 @@
+{
+  "version": 1,
+  "project": {
+    "name": "novadontics",
+    "productType": null,
+    "stack": [
+      "nextjs",
+      "react",
+      "tailwind-v4"
+    ]
+  },
+  "sources": {
+    "tokens": [
+      "src/app/globals.css"
+    ],
+    "components": [
+      "src/components/ui"
+    ],
+    "assets": [
+      "public/assets"
+    ],
+    "instructions": [
+      "AGENTS.md"
+    ]
+  },
+  "design": {
+    "colorMode": "light",
+    "colors": {
+      "--color-brand-yellow": {
+        "value": "#FFF300",
+        "source": "src/app/globals.css"
+      },
+      "--color-brand-amber": {
+        "value": "#FEB300",
+        "source": "src/app/globals.css"
+      },
+      "--color-brand-orange": {
+        "value": "#EC8624",
+        "source": "src/app/globals.css"
+      },
+      "--color-canvas": {
+        "value": "#FAFAF9",
+        "source": "src/app/globals.css"
+      },
+      "--color-surface": {
+        "value": "#FFFFFF",
+        "source": "src/app/globals.css"
+      },
+      "--color-surface-subtle": {
+        "value": "#F5F4F0",
+        "source": "src/app/globals.css"
+      },
+      "--color-surface-elevated": {
+        "value": "#FFFFFF",
+        "source": "src/app/globals.css"
+      },
+      "--color-ink": {
+        "value": "#0F1419",
+        "source": "src/app/globals.css"
+      },
+      "--color-ink-secondary": {
+        "value": "#536471",
+        "source": "src/app/globals.css"
+      },
+      "--color-ink-tertiary": {
+        "value": "#8899A6",
+        "source": "src/app/globals.css"
+      },
+      "--color-border": {
+        "value": "#E8E6E1",
+        "source": "src/app/globals.css"
+      },
+      "--color-border-strong": {
+        "value": "#CFD9DE",
+        "source": "src/app/globals.css"
+      },
+      "--color-accent": {
+        "value": "#FEB300",
+        "source": "src/app/globals.css"
+      },
+      "--color-accent-surface": {
+        "value": "#FFF8E1",
+        "source": "src/app/globals.css"
+      },
+      "--color-dark-bg": {
+        "value": "#0F1419",
+        "source": "src/app/globals.css"
+      },
+      "--color-dark-surface": {
+        "value": "#1A2332",
+        "source": "src/app/globals.css"
+      },
+      "--color-dark-ink": {
+        "value": "#E7E9EA",
+        "source": "src/app/globals.css"
+      },
+      "--color-dark-ink-secondary": {
+        "value": "#8899A6",
+        "source": "src/app/globals.css"
+      }
+    },
+    "typography": {
+      "--font-display": {
+        "value": "var(--font-manrope)",
+        "source": "src/app/globals.css"
+      },
+      "--font-body": {
+        "value": "var(--font-inter)",
+        "source": "src/app/globals.css"
+      }
+    },
+    "spacing": {},
+    "radius": {
+      "--radius-sm": {
+        "value": "6px",
+        "source": "src/app/globals.css"
+      },
+      "--radius-md": {
+        "value": "12px",
+        "source": "src/app/globals.css"
+      },
+      "--radius-lg": {
+        "value": "16px",
+        "source": "src/app/globals.css"
+      },
+      "--radius-xl": {
+        "value": "24px",
+        "source": "src/app/globals.css"
+      }
+    },
+    "shadows": {
+      "--shadow-subtle": {
+        "value": "0 1px 2px rgba(15, 20, 25, 0.05)",
+        "source": "src/app/globals.css"
+      },
+      "--shadow-card": {
+        "value": "0 4px 24px rgba(15, 20, 25, 0.06)",
+        "source": "src/app/globals.css"
+      },
+      "--shadow-elevated": {
+        "value": "0 8px 40px rgba(15, 20, 25, 0.08)",
+        "source": "src/app/globals.css"
+      },
+      "--shadow-product": {
+        "value": "0 16px 64px rgba(15, 20, 25, 0.12), 0 2px 8px rgba(15, 20, 25, 0.04)",
+        "source": "src/app/globals.css"
+      }
+    },
+    "motion": {},
+    "density": "unknown"
+  },
+  "components": {
+    "installed": [],
+    "preferredPrimitives": [],
+    "patterns": []
+  },
+  "constraints": {
+    "must": [],
+    "avoid": []
+  },
+  "decisions": [],
+  "evidence": [
+    {
+      "fact": "components.installed",
+      "source": "src/components/ui"
+    },
+    {
+      "fact": "design.colorMode:light",
+      "source": "src/app/globals.css"
+    },
+    {
+      "fact": "design.tokens",
+      "source": "src/app/globals.css"
+    },
+    {
+      "fact": "project.instructions",
+      "source": "AGENTS.md"
+    },
+    {
+      "fact": "project.stack:nextjs",
+      "source": "package.json"
+    },
+    {
+      "fact": "project.stack:react",
+      "source": "package.json"
+    },
+    {
+      "fact": "project.stack:tailwind-v4",
+      "source": "package.json"
+    }
+  ],
+  "generatedAt": "2026-11-04T15:41:51.668Z"
+}
