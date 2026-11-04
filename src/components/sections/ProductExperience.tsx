@@ -147,13 +147,13 @@ export function ProductExperience() {
                   <span className="product-story-statement-muted">{workflow.summary}</span>
                 </h3>
 
-                <figure className="product-story-media">
+                <figure className={`product-story-media product-story-media--${workflow.id}`}>
                   <Image
                     src={workflow.image}
                     alt={workflow.alt}
                     width={1290}
                     height={612}
-                    sizes="(max-width: 959px) 94vw, (max-width: 1440px) 70vw, 1000px"
+                    sizes="(max-width: 959px) 94vw, (max-width: 1440px) 72vw, 1050px"
                   />
                 </figure>
 
