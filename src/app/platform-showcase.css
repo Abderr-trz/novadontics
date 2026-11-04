@@ -1,0 +1,127 @@
+/* Novadontics: authentic four-screen platform composition.
+   Inspired by the spatial rhythm of the user-provided Attio reference,
+   not a replica of Attio product interfaces. */
+.platform-showcase {
+  position: relative; isolation: isolate; background: #fff; color: #202329;
+  padding: clamp(78px, 8vw, 126px) 0 clamp(100px, 10vw, 150px);
+}
+.platform-showcase-glow, .platform-showcase-lines {
+  position: absolute; z-index: -1; pointer-events: none; inset: 220px 0 0;
+}
+.platform-showcase-glow {
+  background: radial-gradient(ellipse 78% 42% at 50% 78%, rgba(194,208,249,.44), rgba(230,236,255,.13) 67%, transparent),
+              linear-gradient(180deg, #fff 5%, #f7f9ff 82%, #f2f5ff);
+}
+.platform-showcase-lines {
+  inset-block-start: 39%; opacity: .45;
+  background: repeating-linear-gradient(90deg, rgba(151,170,211,.21) 0 1px, transparent 1px 25px);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 38%, #000 84%);
+  mask-image: linear-gradient(180deg, transparent, #000 38%, #000 84%);
+}
+.platform-showcase-heading {
+  position: relative; text-align: center; margin-bottom: clamp(45px, 5vw, 74px);
+}
+.platform-showcase-heading h2 {
+  max-width: 1050px; margin-inline: auto; color: #202125;
+  font: 650 clamp(42px, 4.6vw, 70px)/1.085 var(--font-inter), sans-serif;
+  letter-spacing: -.063em;
+}
+.platform-showcase-heading h2 span { color: #717b8b; }
+.platform-showcase-heading > p {
+  max-width: 720px; margin: 21px auto 0; color: #737c8b;
+  font-size: clamp(16px, 1.3vw, 19px); line-height: 1.55;
+}
+.platform-composition {
+  width: min(calc(100% - 72px), 1530px); height: clamp(520px, 45vw, 690px);
+  position: relative; isolation: isolate; margin-inline: auto;
+}
+.platform-main-window, .platform-floating-window {
+  margin: 0; overflow: hidden; background: rgba(255,255,255,.99);
+  border: 1px solid #dce3ee; border-radius: 19px;
+  box-shadow: 0 22px 64px rgba(52,71,112,.13), 0 7px 22px rgba(46,53,78,.07);
+  will-change: transform;
+}
+.platform-main-window {
+  position: absolute; z-index: 2; left: 12.5%; top: 10%;
+  width: 75%;
+  box-shadow: 0 32px 95px rgba(46,64,105,.16), 0 11px 38px rgba(49,58,89,.1);
+}
+.platform-window-chrome {
+  min-height: 41px; display: flex; align-items: center; gap: 13px;
+  padding: 10px 15px; border-bottom: 1px solid #e7ebf1; background: #f5f6f9;
+}
+.platform-window-dots { display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0; }
+.platform-window-dots > span { display: block; width: 11px; height: 11px; border-radius: 50%; }
+.platform-window-dots > span:nth-child(1) { background: #fa6465; }
+.platform-window-dots > span:nth-child(2) { background: #f2b211; }
+.platform-window-dots > span:nth-child(3) { background: #15bf83; }
+.platform-window-heading {
+  margin-inline: auto; padding-right: 58px;
+  color: #657184; font-size: 11px; font-weight: 610;
+}
+.platform-main-image { padding: 12px 12px 0; background: #fff; }
+.platform-main-image img {
+  display: block; width: 100%; height: auto;
+  border: 1px solid #edf0f5; border-radius: 8px 8px 0 0;
+}
+.platform-main-footer {
+  display: flex; align-items: center; gap: 9px; padding: 11px 16px;
+  background: #fff; border-top: 1px solid #eef1f6;
+  color: #697488; font-size: 11px;
+}
+.platform-status-dot { width: 7px; height: 7px; flex: none; background: #18bd80; border-radius: 50%; }
+.platform-floating-window { position: absolute; z-index: 3; }
+.platform-floating-label { color: #29313a; font-size: clamp(11px, .9vw, 14px); font-weight: 630; padding: 14px 14px 0; }
+.platform-floating-image { padding: 10px 12px 13px; }
+.platform-floating-image img {
+  display: block; width: 100%; height: auto;
+  max-height: 263px; object-fit: contain; border-radius: 7px;
+}
+.platform-patient { left: 0; top: 0; width: 23%; }
+.platform-clinical {
+  left: 3.5%; top: 47%; width: 27%;
+  background: #202328; border-color: #353b43;
+}
+.platform-clinical .platform-window-chrome { background: #2a2e35; border-color: #434851; }
+.platform-clinical .platform-floating-label { color: #f2f4f7; }
+.platform-implant { right: 0; top: 21%; width: 22%; }
+
+/* The compact layouts do not use pinned scroll, preserving readability and scroll control. */
+@media (max-width: 1179px) {
+  .platform-composition {
+    width: min(calc(100% - 64px), 960px); height: auto;
+    display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 18px; align-items: start;
+  }
+  .platform-main-window {
+    grid-column: 1 / -1; position: relative; left: auto; top: auto; width: 100%;
+  }
+  .platform-floating-window {
+    position: relative; left: auto; right: auto; top: auto; width: 100%;
+  }
+  .platform-floating-label { padding-top: 12px; }
+  .platform-floating-image img { max-height: 180px; }
+}
+@media (max-width: 767px) {
+  .platform-showcase { padding: 80px 0 90px; }
+  .platform-showcase-heading { margin-bottom: 42px; }
+  .platform-showcase-heading h2 { font-size: clamp(35px, 7.7vw, 51px); letter-spacing: -.054em; }
+  .platform-showcase-heading > p { font-size: 15px; margin-top: 19px; line-height: 1.62; }
+  .platform-composition {
+    width: calc(100% - 36px);
+    display: grid; grid-template-columns: 1fr; gap: 18px;
+  }
+  .platform-main-window, .platform-floating-window { border-radius: 14px; }
+  .platform-window-chrome { min-height: 34px; padding: 8px 11px; }
+  .platform-window-dots { gap: 5px; }
+  .platform-window-dots > span { width: 9px; height: 9px; }
+  .platform-window-heading { font-size: 10px; padding-right: 40px; }
+  .platform-main-image { padding: 7px 7px 0; }
+  .platform-main-footer { padding: 10px 11px; font-size: 10px; }
+  .platform-floating-label { font-size: 14px; padding: 12px 12px 0; }
+  .platform-floating-image { padding: 10px 12px 13px; }
+  .platform-floating-image img { max-height: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .platform-main-window, .platform-floating-window { will-change: auto; transform: none !important; opacity: 1 !important; visibility: visible !important; }
+}
