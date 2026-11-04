@@ -4,6 +4,7 @@ import "./globals.css";
 import "./platform-showcase.css";
 import "./product-story.css";
 import "./novadontics-brand-motion.css";
+import "./hero-platform-transition.css";
 
 const inter = Inter({
   variable: "--font-inter",
