@@ -42,18 +42,9 @@ function BrowserChrome() {
 export function ConnectedPlatform() {
   return (
     <section id="platform" className="platform-showcase" aria-labelledby="platform-scene-title">
+      <h2 id="platform-scene-title" className="sr-only">One connected dental practice in Novadontics</h2>
       <div className="platform-showcase-glow" aria-hidden="true" />
       <div className="platform-showcase-lines" aria-hidden="true" />
-
-      <div className="site-container platform-showcase-heading">
-        <span className="platform-showcase-kicker">Platform</span>
-        <h2 id="platform-scene-title">
-          <span className="platform-headline-primary">Built for the whole practice.</span>
-          <span className="platform-headline-secondary">
-            Every workflow, beautifully connected.
-          </span>
-        </h2>
-      </div>
 
       <div className="platform-composition" aria-label="Actual Novadontics practice-management, patient engagement, clinical imaging and implant workflows shown together">
         <figure className="platform-main-window">
