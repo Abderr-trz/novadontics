@@ -28,7 +28,7 @@
 .customer-voice-accent { height: 9px; width: 9px; border-radius: 50%; background: #ec8624; }
 .customer-voice h3 {
   max-width: 650px;
-  font: 645 clamp(37px, 3.75vw, 58px)/1.12 var(--font-inter), sans-serif;
+  font: 655 clamp(35px, 3.4vw, 52px)/1.14 var(--font-manrope), sans-serif;
   letter-spacing: -.062em;
 }
 .customer-voice h3 em { font-style: normal; color: #697c7d; }
@@ -99,7 +99,7 @@
 }
 .switch-heading h2 {
   max-width: 760px;
-  font: 645 clamp(50px, 5.8vw, 89px)/1.085 var(--font-inter), sans-serif;
+  font: 660 clamp(46px, 5.2vw, 74px)/1.11 var(--font-manrope), sans-serif;
   letter-spacing: -.067em;
   text-wrap: balance;
 }
@@ -149,7 +149,7 @@
   border-radius: 50%;
 }
 .switch-step h3 {
-  font: 630 clamp(21px, 2vw, 29px)/1.27 var(--font-inter), sans-serif;
+  font: 650 clamp(20px, 1.9vw, 27px)/1.27 var(--font-manrope), sans-serif;
   letter-spacing: -.045em;
   color: #282e2c;
   max-width: 240px;
