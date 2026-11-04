@@ -11,9 +11,9 @@ The user supplied an Attio homepage screenshot and approved this **composition**
 Do NOT revert this centered hero to the former asymmetric layout during later Codex refinements.
 
 - Preserve genuine Novadontics logo and existing /public/assets/novadontics screenshots.
-- Larger display typography, fewer decorative elements, room for real product imagery.
-- Primary palette: soft neutral canvas (#f8f8f5), deep mineral green (#172722), muted sage (#829087), subtle Novadontics amber (#e5ad37).
-- Manrope for display, Inter for UI and body copy. Use consistent optical line breaks.
+- Professionally scaled Manrope display typography (titles usually 36–74px depending on hierarchy), Inter body, minimal decorative elements, and authentic large product imagery.
+- Current primary palette: genuine Novadontics icon yellow (#FFF300), orange (#EC8624), warm-sand / cold-orange neutral (#F3D7B3), true logo gray (#697C7D) and ink charcoal (#242629). Never reintroduce green SaaS accents or bluish generic canvas.
+- Manrope for ALL display/section headings and UI headings; Inter for body/navigation and interactive labels. Maintain consistent optical line breaks and no 90px h2 headings.
 - No 01/02/03 section numbering, tiny uppercase eyebrow labels, yellow-dot kickers, generic three-card layouts or invented product dashboards.
 - Primary CTA is Book a free demo linking to official Novadontics URL.
 - Trust signals should be sourced from official Novadontics and kept visually restrained.
@@ -90,3 +90,14 @@ Implementation:
 - Latest Vercel deployment for these commits: `902ac61fde6f054df5aedd194a2153ead27a1aac`, status READY.
 - TinyFish verified the real rendered desktop section: four genuine feature images rendered; sticky nav and active indicator worked scrolling forward/back; no clipping, broken images, overlap or horizontal overflow detected. Mobile viewport, exact pixel measurements, and performance metrics were not available and remain to be checked before merge.
 - Keep branch `design-refinement-editorial` separate from main until explicit approval.
+
+
+## November 4 — Full-site polish requested after user screenshots
+
+The user rejected the giant generic image-holder surfaces, green accents, oversized headings and oversized navigation. Latest design decisions are mandatory for future sessions:
+- Navbar height **72px desktop / 68px mobile**, real logo width around **151px**, ~13.5px navigation labels and ONE compact **Book a demo** CTA on desktop. No redundant “View pricing” button (Pricing remains in primary navigation).
+- The brand color system is grounded in the official logo: `#FFF300` yellow, `#EC8624` orange, warm-sand `#F3D7B3`, slate `#697C7D`, charcoal `#242629`. Light ivory surfaces and dark neutral charcoal are supporting colors. Never use deep mineral green or arbitrary blue for headlines, panels, CTA or accents.
+- Consistent title font is the already-installed `Manrope` via `next/font/google`; body and UI use `Inter`. Hero display capped around 83px; product section heading max 60px; chapter titles 36px; journey/closing titles max ~74–79px. Maintain deliberate tracking and line-height.
+- Product Experience photography/UI: original assets already include their OWN built-in frame/backdrop. Rendering them inside another padded, shadowed rounded box is prohibited. In `ProductExperience.tsx` use a single `product-story-media--{workflow.id}` figure, in `product-story.css` with NO extra padding, background, border, shadow or browser chrome. Respect natural image aspect ratios and their intrinsic art direction (practice neutral; patient forms warm; imaging dark; implant tablet on ivory).
+- Use narrow active rail orange stroke, restrained text and large natural product visuals; keep GSAP scroll tracking and accessible anchors.
+- Keep `main` untouched until QA and explicit user approval. Validate 1440, 1024, 390, 360 widths and reduced motion.
