@@ -41,22 +41,26 @@ export function HeroPlatformTransition() {
           scale: 0.985,
           duration: 0.60,
         }, 0.06)
+        .fromTo(".platform-showcase-heading",
+          { autoAlpha: 0, y: 30 },
+          { autoAlpha: 1, y: 0, duration: 0.46 },
+          0.24)
         .fromTo(".platform-main-window",
           { autoAlpha: 0, y: 150, scale: 0.93 },
           { autoAlpha: 1, y: 0, scale: 1, duration: 0.74 },
-          0.24)
+          0.40)
         .fromTo(".platform-patient",
           { autoAlpha: 0, x: 50, y: 150, scale: 0.88 },
           { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: 0.64 },
-          0.38)
+          0.52)
         .fromTo(".platform-clinical",
           { autoAlpha: 0, x: 55, y: 160, scale: 0.88 },
           { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: 0.64 },
-          0.46)
+          0.60)
         .fromTo(".platform-implant",
           { autoAlpha: 0, x: -55, y: 145, scale: 0.88 },
           { autoAlpha: 1, x: 0, y: 0, scale: 1, duration: 0.64 },
-          0.52);
+          0.68);
     });
 
     // On phones, keep the product accessible and the scroll short.
