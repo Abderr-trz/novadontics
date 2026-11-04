@@ -1,13 +1,7 @@
 "use client";
 
-import { useRef } from "react";
 import Image from "next/image";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PracticeLogos } from "./TrustProof";
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 // Every image below is an authentic Novadontics asset stored in the project.
 const secondaryScreens = [
@@ -46,48 +40,8 @@ function BrowserChrome() {
 }
 
 export function ConnectedPlatform() {
-  const root = useRef<HTMLElement>(null);
-
-  useGSAP(() => {
-    const mm = gsap.matchMedia();
-
-    mm.add("(min-width: 1180px) and (prefers-reduced-motion: no-preference)", () => {
-      const stage = root.current?.querySelector(".platform-composition");
-      if (!stage) return;
-
-      // Video reference @ 05–07s: four different windows rise from the bottom.
-      // This is tied to natural scroll, not to a forced/pinned timeline.
-      const timeline = gsap.timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: {
-          trigger: stage,
-          start: "top 96%",
-          end: "top 33%",
-          scrub: 0.8,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      timeline
-        .fromTo(".platform-main-window",
-          { y: 108, scale: .925, autoAlpha: .32 },
-          { y: 0, scale: 1, autoAlpha: 1, duration: .85 }, 0)
-        .fromTo(".platform-patient",
-          { x: 52, y: 125, scale: .86, autoAlpha: 0 },
-          { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .7 }, .17)
-        .fromTo(".platform-clinical",
-          { x: 62, y: 145, scale: .84, autoAlpha: 0 },
-          { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .7 }, .28)
-        .fromTo(".platform-implant",
-          { x: -65, y: 130, scale: .85, autoAlpha: 0 },
-          { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .72 }, .36);
-    });
-
-    return () => mm.revert();
-  }, { scope: root });
-
   return (
-    <section id="platform" ref={root} className="platform-showcase" aria-labelledby="platform-scene-title">
+    <section id="platform" className="platform-showcase" aria-labelledby="platform-scene-title">
       <h2 id="platform-scene-title" className="sr-only">One connected dental practice in Novadontics</h2>
       <div className="platform-showcase-glow" aria-hidden="true" />
       <div className="platform-showcase-lines" aria-hidden="true" />
