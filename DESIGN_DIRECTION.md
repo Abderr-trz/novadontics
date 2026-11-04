@@ -54,3 +54,26 @@ Vercel preview deployments are protected by login. Automated browser tools see V
 
 ## November 4 — Hero-to-collage refinements after user screenshots
 User explicitly rejected oversized hero text and the empty striped band between hero and platform. The fix is in `HeroPlatformTransition.tsx`, `Hero.tsx`, `ConnectedPlatform.tsx`, and `src/app/hero-platform-transition.css`. The page now renders `<HeroPlatformTransition />` in place of two unrelated siblings. Shared warm background across both sections, no repeating grid seams, refined optical headline sizing and vertical rhythm. GSAP fade-out and layered-window rise are controlled by one reversible ScrollTrigger. `src/app/hero-platform-transition.css` MUST remain the final imported stylesheet so it can override older hero styles. Run browser visual QA in Vercel after granting authorized access before merging.
+
+
+## November 4 — Final five-part homepage structure and new conversion story
+
+The user approved adding carefully selected missing value from the official Novadontics website, without copying its excessive homepage length. The final homepage is five narrative chapters (navigation/footer excluded):
+
+1. **Hero + real software collage:** `HeroPlatformTransition` (preserve the Attio-like hero-to-product scroll choreography).
+2. **Product experience:** `ProductExperience`, sticky links and real screenshots.
+3. **One patient, one connected journey:** `PatientJourney` added to `src/app/page.tsx`. Five stages: appointment, patient record, imaging, billing and follow-up. A dark charcoal pinned desktop story changes actual Novadontics screenshots in response to native scroll. Static full-story timeline on mobile, short viewports and reduced-motion. This is an *illustrative journey*, not a simulated live patient chart; no invented data or claims that all features are included in all subscription tiers.
+4. **Built for your practice + trust:** existing `PracticeAndClosing` audience layout enhanced with four verified target audiences and `CustomerVoice`, using a real, attributed Dr. Yana Pekarski testimonial and official portrait. Do not use unverifiable dramatic metrics or invent reviews.
+5. **Switching made simple + final CTA:** `Onboarding` shows four summarized steps (data conversion, training, go-live, ongoing support), then the existing dark CTA. Specific conversion time estimates vary between official pages and must NOT be stated as guarantees.
+
+New CSS: `patient-journey.css` and `trust-onboarding.css`, loaded in `src/app/layout.tsx` before the user's final hero override.
+
+Verified official links:
+- https://www.novadontics.com/the-platform
+- https://www.novadontics.com/solutions/new-practices
+- https://www.novadontics.com/solutions/groups-dsos
+- https://www.novadontics.com/testimonials
+- https://www.novadontics.com/onboarding
+- https://www.novadontics.com/book-a-demo
+
+Before merging, inspect the protected Vercel preview at 1440x900 and 390x844 in an authorized browser. Check the dark journey's five-stage scrub, keyboard-accessible stage buttons, portrait image load, customer quote overflow, onboarding timeline and mobile static flow. Run lint/build. Never merge without explicit user approval.
