@@ -52,11 +52,11 @@
   margin: 0;
   max-width: 315px;
   color: #242629;
-  font-family: var(--font-manrope), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-size: clamp(25px, 2.2vw, 33px);
-  font-weight: 655;
+  font-weight: 600;
   line-height: 1.20;
-  letter-spacing: -.047em;
+  letter-spacing: -.038em;
   text-wrap: balance;
 }
 .platform-client-strip .practice-proof-copy h3 span {
