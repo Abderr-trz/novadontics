@@ -44,7 +44,7 @@ export function Navbar() {
       }
     };
 
-    const desktop = window.matchMedia("(min-width: 960px)");
+    const desktop = window.matchMedia("(min-width: 1061px)");
     const onResize = () => { if (desktop.matches) setOpen(false); };
     desktop.addEventListener("change", onResize);
     document.addEventListener("keydown", onKeyDown);
@@ -96,9 +96,6 @@ export function Navbar() {
                 {link.label}<ArrowUpRight size={19} aria-hidden="true" />
               </a>
             ))}
-            <a href="https://www.novadontics.com/pricing" onClick={() => setOpen(false)}>
-              View pricing <ArrowUpRight size={19} aria-hidden="true" />
-            </a>
           </div>
           <div className="mobile-menu-bottom">
             <p>Everything your practice needs, connected.</p>
