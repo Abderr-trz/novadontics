@@ -1,0 +1,129 @@
+/* Brand alignment established from the actual Novadontics SVG:
+   logo yellow #FFF300; logo orange #EC8624; wordmark #697C7D.
+   Keep brand accents intentional and readable against the Attio-like neutral canvas. */
+:root {
+  --novadontics-yellow: #fff300;
+  --novadontics-orange: #ec8624;
+  --novadontics-slate: #697c7d;
+  --novadontics-ink: #222629;
+  --novadontics-warm-canvas: #fcfaf2;
+}
+body { background: #fff; color: var(--novadontics-ink); }
+:focus-visible { outline-color: var(--novadontics-orange); }
+::selection { background: #ffefb6; color: #202125; }
+.desktop-links a:hover,
+.site-header .nav-secondary:hover { color: #9a581d; }
+.site-header .nav-demo { background: #242628; border-color: #242628; }
+.site-header .nav-demo:hover { background: #3b3e40; border-color: #3b3e40; }
+.hero-button-primary { background: #242628; border-color: #242628; }
+.hero-button-primary:hover { background: #424548; border-color: #424548; }
+.hero-centered {
+  background: linear-gradient(180deg, #fff 0%, #fff 56%, #fffdf6 83%, #fff9e8 100%);
+  padding-bottom: clamp(112px, 12vw, 198px);
+}
+.hero-centered .hero-pill {
+  border-color: #e7e8e4; color: #4b5353;
+  background: #fff;
+}
+.hero-centered .hero-pill:hover { border-color: #f0b869; }
+.hero-centered .hero-ambient {
+  inset: 45% -12% -10%;
+  background: radial-gradient(ellipse 80% 60% at 52% 97%, rgba(255,243,0,.18), rgba(254,179,0,.10) 45%, transparent 77%);
+}
+.hero-centered .hero-grid {
+  inset: 55% 0 0;
+  opacity: .36;
+  background-image: linear-gradient(90deg, rgba(218,165,65,.21) 1px, transparent 1px);
+}
+.hero-centered .hero-title { color: #202326; }
+.hero-centered .hero-lead { color: #697c7d; }
+
+/* Keep the collage connected to the hero: no artificial chapter heading or gap. */
+.platform-showcase {
+  padding-top: 0;
+  padding-bottom: clamp(72px, 8vw, 130px);
+  background: linear-gradient(180deg, #fff9e8 0%, #fffcf6 38%, #fff 100%);
+  overflow-x: clip;
+}
+.platform-showcase-glow {
+  inset: -12% 0 0;
+  background: radial-gradient(ellipse 72% 41% at 50% 45%, rgba(255,233,142,.27), rgba(255,243,0,.06) 52%, transparent 79%);
+}
+.platform-showcase-lines {
+  opacity: .40;
+  inset-block-start: 0;
+  background-image: repeating-linear-gradient(90deg, rgba(207,165,76,.19) 0 1px, transparent 1px 25px);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 61%, transparent 96%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 61%, transparent 96%);
+}
+.platform-window-dots > span:nth-child(1) { background: #fff300; }
+.platform-window-dots > span:nth-child(2) { background: #feb300; }
+.platform-window-dots > span:nth-child(3) { background: #ec8624; }
+.platform-main-window, .platform-floating-window {
+  border-color: #e0e1dc;
+  box-shadow: 0 22px 62px rgba(69,58,42,.10), 0 5px 25px rgba(54,49,40,.07);
+}
+.platform-main-window {
+  box-shadow: 0 33px 99px rgba(68,60,45,.13), 0 11px 35px rgba(49,52,52,.07);
+}
+.platform-window-chrome { background: #f9f9f7; border-color: #eaeae6; }
+.platform-window-heading { color: #697c7d; }
+.platform-main-footer { color: #697c7d; }
+.platform-status-dot { background: #ec8624; }
+.platform-clinical { background: #282b2e; }
+.platform-clinical .platform-window-chrome { background: #303336; border-color: #4a4a49; }
+.platform-client-strip { position: relative; margin-top: clamp(48px, 5vw, 78px); }
+.platform-client-strip .practice-proof {
+  margin: 0; padding: 35px 0 0;
+  border-bottom: 0; border-top: 1px solid #e9e6dc;
+  align-items: center;
+  gap: clamp(28px, 5vw, 74px);
+}
+.platform-client-strip .practice-proof-copy p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #697c7d;
+}
+.platform-client-strip .practice-logo { opacity: .64; }
+.platform-client-strip .practice-logo:hover { opacity: 1; }
+.product-story-section { border-top-color: #efeee7; }
+
+/* Later dark cinematic moment: ambient warm halo, not a copied Attio graphic. */
+.closing-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #1e2224;
+}
+.closing-section::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: -37vw;
+  width: min(150vw, 1900px);
+  height: min(95vw, 1160px);
+  transform: translateX(-50%);
+  border: 1px solid rgba(255,222,109,.35);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 100%, rgba(255,196,61,.11), transparent 64%);
+  box-shadow: 0 0 95px rgba(236,134,36,.075);
+  pointer-events: none;
+}
+.closing-content h2 em { color: #d5d9d3; }
+.closing-aside p { color: #c5cdca; }
+.closing-button { background: #fff300; color: #222629; }
+.closing-button:hover { background: #ffdf54; color: #222629; }
+.footer { border-top-color: #424b49; }
+.footer a, .footer > span { color: #bac3c1; }
+
+@media (max-width: 899px) {
+  .platform-client-strip .practice-proof { gap: 20px; }
+}
+@media (max-width: 767px) {
+  .hero-centered { padding-bottom: 125px; }
+  .platform-client-strip { margin-top: 35px; }
+  .platform-client-strip .practice-proof { padding-top: 25px; }
+  .platform-client-strip .practice-proof-copy p { text-align: center; }
+  .closing-section::before { top: -200px; width: 140vw; height: 680px; }
+}
