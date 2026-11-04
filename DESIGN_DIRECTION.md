@@ -19,7 +19,7 @@ Do NOT revert this centered hero to the former asymmetric layout during later Co
 - Trust signals should be sourced from official Novadontics and kept visually restrained.
 
 ## Page composition (based on the user's 34-second Attio video)
-1. **Hero (00–05s)**: centered, large editorial type, a minimal pill and two accessible CTAs. NO duplicate screenshot in the hero. One continuous warm light canvas.
+1. **Hero (00–05s)**: centered, large editorial type, a minimal pill and two accessible CTAs. NO duplicate screenshot in the hero. One continuous warm light canvas. Current hero typography target at desktop: 72–80px, not the previous near-100px heading. Supporting copy 18–19px with controlled ~690px width.
 2. **Screen composition (05–07s)**: four separate REAL Novadontics screenshots rise from the lower viewport with depth offsets, soft shadows and subtle browser chrome. They do not emerge from a single flat screenshot. Implemented in `src/components/sections/ConnectedPlatform.tsx` and `src/app/platform-showcase.css`.
 3. **Practice logos (07–09s)**: original Novadontics customer logos from `TrustProof.tsx` directly after the product composition. No repeated logos in the practice audience section.
 4. **Sticky workflow story (09–20s)**: a compact left-side navigation highlights the active chapter as the user naturally scrolls real product screenshots and narrative on the right. Implemented in `ProductExperience.tsx` and `src/app/product-story.css`.
@@ -27,8 +27,8 @@ Do NOT revert this centered hero to the former asymmetric layout during later Co
 6. Preserve audience content and verified practice information; do not invent testimonials, business metrics or clinical data.
 
 ## Motion
-- Hero: short GSAP entrance only, no scroll hijacking.
-- Layered collage: reversible GSAP scrubbed scroll entrance, start `top 96%` end `top 33%`. No pinning. Only desktop >=1180px and no reduced-motion preference; visible static multi-column/grid otherwise.
+- Hero: short GSAP entrance plus fade-out coordinated in one timeline with the platform windows, no scroll hijacking.
+- Hero + layered collage: unified scroll timeline in `src/components/sections/HeroPlatformTransition.tsx` (both sections are children). The hero copy fades/slightly rises while the real Novadontics window collage appears progressively in the same viewport. Timeline uses natural scrolling, no pinning. Desktop/tablet >=768px reveals all four windows; mobile keeps the grid static while fading the hero gently. Reduced-motion users see all content unanimated.
 - Product story: CSS `position: sticky` navigation (desktop >=900px); ScrollTrigger observes each section and updates active link on forward/reverse scroll. Product imagery has subtle scroll-linked opacity and position transitions. Mobile displays all chapters stacked.
 - Dark closing: gentle orbit scale/translation tied to scroll, reduced motion respected.
 - Do not add Lenis, smooth-scroll hijacking, multiple fullscreen pins or gratuitous gradients.
@@ -51,3 +51,6 @@ Logo icon: yellow `#FFF300`, orange `#EC8624`, gold `#FEB300`. Wordmark: gray `#
 
 ## Current QA constraints
 Vercel preview deployments are protected by login. Automated browser tools see Vercel sign-in rather than the actual preview, so complete desktop/mobile visual QA and real scroll testing still require an authorized browser session. The GitHub branch is intentionally left separate from main until review.
+
+## November 4 — Hero-to-collage refinements after user screenshots
+User explicitly rejected oversized hero text and the empty striped band between hero and platform. The fix is in `HeroPlatformTransition.tsx`, `Hero.tsx`, `ConnectedPlatform.tsx`, and `src/app/hero-platform-transition.css`. The page now renders `<HeroPlatformTransition />` in place of two unrelated siblings. Shared warm background across both sections, no repeating grid seams, refined optical headline sizing and vertical rhythm. GSAP fade-out and layered-window rise are controlled by one reversible ScrollTrigger. `src/app/hero-platform-transition.css` MUST remain the final imported stylesheet so it can override older hero styles. Run browser visual QA in Vercel after granting authorized access before merging.
