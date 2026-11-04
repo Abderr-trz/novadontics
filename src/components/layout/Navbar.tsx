@@ -70,8 +70,7 @@ export function Navbar() {
           </div>
 
           <div className="nav-actions">
-            <a className="nav-secondary" href="https://www.novadontics.com/pricing">View pricing</a>
-            <a className="nav-demo" href="https://www.novadontics.com/book-a-demo">Book a demo</a>
+            <a className="nav-demo" href="https://www.novadontics.com/book-a-demo">Book a demo <ArrowUpRight size={15} strokeWidth={1.8} aria-hidden="true" /></a>
           </div>
 
           <button
