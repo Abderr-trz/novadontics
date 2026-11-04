@@ -4,6 +4,12 @@
 Create a product-first, bespoke editorial SaaS experience for dental practice management. The current challenge is visual quality, authentic branding and meaningful motion rather than adding more features.
 
 ## Approved direction (Nov 2026)
+
+### Homepage Header & Hero — explicit visual reference (Nov 4)
+The user supplied an Attio homepage screenshot and approved this **composition**, not Attio branding: white navigation with genuine Novadontics logo left, calm links centered, two right-aligned CTA buttons; centered narrow pill; oversized centered two-line headline; centered support copy and outline + dark buttons; restrained pale blue/neutral ambient glow and faint vertical lines at the bottom; real Novadontics product interface shown below the fold in a single large clean frame. No split hero, side panel, numbered label, awards band, stock graphics, or made-up login URL. Header secondary link is View pricing (official Novadontics URL) because no verified Novadontics sign-in URL was available. Main CTA books a demo. Keep responsive composition faithful.
+
+Do NOT revert this centered hero to the former asymmetric layout during later Codex refinements.
+
 - Preserve genuine Novadontics logo and existing /public/assets/novadontics screenshots.
 - Larger display typography, fewer decorative elements, room for real product imagery.
 - Primary palette: soft neutral canvas (#f8f8f5), deep mineral green (#172722), muted sage (#829087), subtle Novadontics amber (#e5ad37).
@@ -13,7 +19,7 @@ Create a product-first, bespoke editorial SaaS experience for dental practice ma
 - Trust signals should be sourced from official Novadontics and kept visually restrained.
 
 ## Page composition
-1. Hero: giant editorial statement plus oversized authentic dashboard image; low-noise credibility bar.
+1. Hero: Attio-like centered navigation and centered type, minimal pill and buttons, product screenshot below the fold, faint ambient glow. No awards bar in hero.
 2. Connected practice: one dark visual chapter demonstrating five workflows converging into the real product. GSAP ScrollTrigger on desktop, static simplified mobile.
 3. Product experience: four accessible tabs with big real product screenshots.
 4. Who it's for: verified practice logos, editorial photo, clean unnumbered link rows.
