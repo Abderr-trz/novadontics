@@ -60,7 +60,7 @@ const connectionPaths = [
   "M828 145 H801 Q768 145 768 181 V260 Q768 282 748 282",
   "M372 403 H402 Q432 403 432 370 V324 Q432 305 452 305",
   "M828 403 H798 Q768 403 768 370 V324 Q768 305 748 305",
-  "M600 374 V465",
+  "M600 359 V480",
 ] as const;
 
 export function PatientJourney() {
@@ -72,7 +72,7 @@ export function PatientJourney() {
   useGSAP(() => {
     const media = gsap.matchMedia();
 
-    media.add("(min-width: 1120px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)", () => {
+    media.add("(min-width: 1024px) and (min-height: 640px) and (prefers-reduced-motion: no-preference)", () => {
       const stage = canvas.current;
       if (!stage) return;
 
@@ -120,12 +120,37 @@ export function PatientJourney() {
       };
     });
 
+    // Keep the full five-card diagram visible on short desktop windows and
+    // for visitors who request reduced motion. Only pinning is disabled.
+    media.add(
+      "(min-width: 1024px) and (max-height: 639px), (min-width: 1024px) and (prefers-reduced-motion: reduce)",
+      () => {
+        const paths = canvas.current?.querySelectorAll<SVGPathElement>(".pj-wire-active");
+        paths?.forEach((path) => {
+          const length = path.getTotalLength();
+          gsap.set(path, { strokeDasharray: length, strokeDashoffset: 0 });
+        });
+        gsap.set(".pj-center-card", { scale: 1 });
+        gsap.set(".pj-node", { opacity: 1, y: 0, scale: 1 });
+        setConnected(5);
+      },
+    );
+
     return () => media.revert();
   }, { scope: root });
 
   function focusStep(index: number) {
     const trigger = timeline.current?.scrollTrigger;
     if (!trigger) {
+      // Non-pinned desktop: clicking a card selects its connection directly.
+      const paths = canvas.current?.querySelectorAll<SVGPathElement>(".pj-wire-active");
+      paths?.forEach((path, pathIndex) => {
+        const length = path.getTotalLength();
+        gsap.set(path, {
+          strokeDasharray: length,
+          strokeDashoffset: pathIndex <= index ? 0 : length,
+        });
+      });
       setConnected(index + 1);
       return;
     }
