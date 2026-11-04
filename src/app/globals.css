@@ -314,7 +314,7 @@ a, button { transition: color .22s ease, background .22s ease, border-color .22s
 .practice-logo { width: min(100%, 153px); height: 61px; object-fit: contain; filter: grayscale(1); opacity: .7; transition: filter .25s, opacity .25s; }
 .practice-logo-grid li:hover .practice-logo { filter: none; opacity: 1; }
 .audience-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: clamp(50px, 6vw, 82px); }
-.audience-heading h2 { font: 610 clamp(50px, 5.35vw, 80px)/1.06 var(--font-display), sans-serif; letter-spacing: -.069em; }
+.audience-heading h2 { font: 660 clamp(46px, 5.0vw, 71px)/1.09 var(--font-display), sans-serif; letter-spacing: -.069em; }
 .audience-heading h2 em { font-style: normal; color: #a16a36; }
 .audience-heading p { max-width: 340px; color: #697c7d; font-size: 16px; line-height: 1.8; padding-bottom: 5px; }
 .audience-layout { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr); gap: clamp(40px, 6.8vw, 95px); align-items: center; }
@@ -323,7 +323,7 @@ a, button { transition: color .22s ease, background .22s ease, border-color .22s
 .audience-image:hover img { transform: scale(1.035); }
 .audience-list { border-top: 1px solid #e7e2db; }
 .audience-item { display: flex; justify-content: space-between; align-items: start; gap: 25px; padding-block: 32px; border-bottom: 1px solid #e7e2db; }
-.audience-item h3 { font: 610 clamp(21px, 2vw, 27px)/1.2 var(--font-display), sans-serif; letter-spacing: -.044em; }
+.audience-item h3 { font: 655 clamp(20px, 2vw, 27px)/1.25 var(--font-display), sans-serif; letter-spacing: -.044em; }
 .audience-item p { color: #697c7d; font-size: 14px; line-height: 1.75; max-width: 420px; margin-top: 12px; }
 .audience-item svg { flex-shrink: 0; margin-top: 4px; transition: transform .2s; }
 .audience-item:hover svg { transform: translate(4px, -4px); }
@@ -332,7 +332,7 @@ a, button { transition: color .22s ease, background .22s ease, border-color .22s
 /* A deliberately simple closing, with genuine logo and clear CTA. */
 .closing-section { background: #172722; color: #f6f8f2; padding-top: clamp(110px, 12vw, 170px); }
 .closing-content { display: grid; grid-template-columns: minmax(0, 1fr) 290px; align-items: end; gap: clamp(35px, 5vw, 75px); padding-bottom: clamp(100px, 11vw, 165px); }
-.closing-content h2 { font: 600 clamp(55px, 6vw, 91px)/1.09 var(--font-display), sans-serif; letter-spacing: -.071em; }
+.closing-content h2 { font: 655 clamp(51px, 5.5vw, 79px)/1.1 var(--font-display), sans-serif; letter-spacing: -.071em; }
 .closing-content h2 em { font-style: normal; color: #e5c8a0; }
 .closing-aside p { color: #c9d8cc; font-size: 16px; line-height: 1.8; margin-bottom: 25px; }
 .footer { display: flex; align-items: center; justify-content: space-between; gap: 30px; min-height: 113px; border-top: 1px solid #466056; }
