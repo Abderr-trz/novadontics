@@ -57,27 +57,32 @@ export function PracticeLogos() {
   useGSAP(() => {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const timeline = gsap.timeline({
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: root.current,
-          start: "top 87%",
+          start: "top 88%",
           toggleActions: "play none none reverse",
         },
       });
 
-      timeline
-        .fromTo(".practice-proof-rule",
-          { scaleX: 0 },
-          { scaleX: 1, duration: 0.85, ease: "power2.out" },
-          0)
-        .fromTo(".practice-proof-copy > *",
-          { autoAlpha: 0, y: 16 },
-          { autoAlpha: 1, y: 0, stagger: 0.1, duration: 0.7, ease: "power3.out" },
-          0.08)
-        .fromTo(".practice-logo-grid li",
-          { autoAlpha: 0, y: 18, scale: 0.97 },
-          { autoAlpha: 1, y: 0, scale: 1, stagger: 0.07, duration: 0.72, ease: "power2.out" },
-          0.19);
+      tl.fromTo(
+        ".practice-proof-intro",
+        { autoAlpha: 0, y: 12 },
+        { autoAlpha: 1, y: 0, duration: .65, ease: "power2.out" },
+        0,
+      ).fromTo(
+        ".practice-logo-grid li",
+        { autoAlpha: 0, y: 16, scale: .975 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: .75,
+          ease: "power2.out",
+          stagger: { amount: .57, from: "start" },
+        },
+        .15,
+      );
     });
 
     return () => mm.revert();
@@ -85,12 +90,9 @@ export function PracticeLogos() {
 
   return (
     <div className="practice-proof" ref={root}>
-      <span className="practice-proof-rule" aria-hidden="true" />
-
-      <div className="practice-proof-copy">
-        <h3>Trusted where <span>care happens.</span></h3>
-        <p>Dental practices across all 50 states choose Novadontics for their everyday work.</p>
-      </div>
+      <p className="practice-proof-intro">
+        Trusted by dental practices <span>across all 50 states.</span>
+      </p>
 
       <ul className="practice-logo-grid" aria-label="Dental practices using Novadontics">
         {practices.map(([file, name]) => (
@@ -100,7 +102,7 @@ export function PracticeLogos() {
               alt={name}
               width={190}
               height={72}
-              sizes="(max-width: 600px) 42vw, (max-width: 1023px) 22vw, 180px"
+              sizes="(max-width: 600px) 42vw, (max-width: 1023px) 22vw, 190px"
               className="practice-logo"
             />
           </li>
