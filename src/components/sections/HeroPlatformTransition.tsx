@@ -65,13 +65,13 @@ export function HeroPlatformTransition() {
       if (!hero) return;
 
       gsap.to(".hero-fade-group", {
-        opacity: 0.22,
-        y: -22,
+        autoAlpha: 0,
+        y: -24,
         ease: "none",
         scrollTrigger: {
           trigger: hero,
           start: "top top",
-          end: "bottom 55%",
+          end: "bottom top+=120",
           scrub: 0.65,
           invalidateOnRefresh: true,
         },
