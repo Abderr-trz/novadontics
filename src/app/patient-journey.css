@@ -65,7 +65,7 @@
   position: relative;
   isolation: isolate;
   width: min(calc(100% - 88px), 1400px);
-  height: clamp(540px, calc(100svh - 108px), 650px);
+  height: clamp(490px, calc(100svh - 96px), 650px);
   margin-inline: auto;
   overflow: hidden;
   border: 1px solid #e7e0d4;
