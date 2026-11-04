@@ -72,7 +72,7 @@ export function PatientJourney() {
   useGSAP(() => {
     const media = gsap.matchMedia();
 
-    media.add("(min-width: 1024px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)", () => {
+    media.add("(min-width: 1120px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)", () => {
       const stage = canvas.current;
       if (!stage) return;
 
