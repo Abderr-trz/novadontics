@@ -6,6 +6,7 @@ import "./product-story.css";
 import "./novadontics-brand-motion.css";
 import "./patient-journey.css";
 import "./trust-onboarding.css";
+import "./practice-proof.css";
 import "./hero-platform-transition.css";
 
 const inter = Inter({
