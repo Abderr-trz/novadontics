@@ -184,40 +184,62 @@
   font-weight: 450;
 }
 
+/* Carefully sized product artwork, not an oversized screenshot panel.
+   Source images already include their own native interfaces and art direction:
+   use no second browser frame, no heavy bordered card or box shadow. */
 .product-story-media {
-  display: block;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
   width: 100%;
-  margin: 0;
-  padding: 0;
+  max-width: 1040px;
+  min-height: clamp(285px, 29vw, 460px);
+  margin: 0 auto;
+  padding: clamp(12px, 1.8vw, 24px) clamp(14px, 2.5vw, 34px);
+  background: transparent;
   overflow: visible;
   border: 0;
   border-radius: 0;
-  background: transparent;
   box-shadow: none;
+}
+.product-story-media::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  inset: 8% 2%;
+  background: radial-gradient(
+    ellipse 63% 56% at 50% 55%,
+    rgba(243, 215, 179, .17),
+    rgba(243, 215, 179, .065) 55%,
+    transparent 80%
+  );
 }
 .product-story-media img {
   display: block;
-  width: 100%;
+  position: relative;
+  flex: 0 1 auto;
+  width: auto;
   height: auto;
-  max-width: 100%;
-  max-height: none;
+  max-width: min(100%, 790px);
+  max-height: clamp(315px, 30vw, 465px);
   margin: 0 auto;
   padding: 0;
+  object-fit: contain;
+  object-position: center;
   border: 0;
   border-radius: 0;
   box-shadow: none;
-  filter: none;
-  object-fit: contain;
-  object-position: center;
+  filter: drop-shadow(0 11px 21px rgba(43, 36, 29, .065));
 }
-/* Respect the composition baked into each genuine Novadontics photograph / UI shot. */
-.product-story-media--practice img,
-.product-story-media--patients img,
-.product-story-media--imaging img,
-.product-story-media--implants img {
-  max-width: 100%;
-  width: 100%;
-}
+
+/* Individual optical bounds account for the different intrinsic compositions. */
+.product-story-media--practice img { max-width: min(100%, 810px); max-height: 445px; }
+.product-story-media--patients img { max-width: min(100%, 730px); max-height: 450px; }
+.product-story-media--imaging img { max-width: min(100%, 805px); max-height: 445px; }
+.product-story-media--implants img { max-width: min(100%, 700px); max-height: 430px; }
 
 .product-story-link {
   display: inline-flex;
@@ -294,7 +316,18 @@
     padding: 65px clamp(25px, 4vw, 45px) 80px;
     scroll-margin-top: 82px;
   }
-  .product-story-statement { font-size: clamp(28px, 4vw, 36px); margin-bottom: 45px; }
+  .product-story-statement { font-size: clamp(28px, 4vw, 36px); margin-bottom: 36px; }
+  .product-story-media { min-height: 0; padding: 16px 8px; }
+  .product-story-media img,
+  .product-story-media--practice img,
+  .product-story-media--patients img,
+  .product-story-media--imaging img,
+  .product-story-media--implants img {
+    width: auto;
+    height: auto;
+    max-width: min(100%, 720px);
+    max-height: 390px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -321,6 +354,18 @@
     line-height: 1.25;
     letter-spacing: -.027em;
     margin-bottom: 32px;
+  }
+  .product-story-media { padding: 10px 0; min-height: 0; }
+  .product-story-media img,
+  .product-story-media--practice img,
+  .product-story-media--patients img,
+  .product-story-media--imaging img,
+  .product-story-media--implants img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 330px;
+    filter: drop-shadow(0 7px 15px rgba(43,36,29,.055));
   }
   .product-story-link { font-size: 12px; margin-top: 16px; }
 }
