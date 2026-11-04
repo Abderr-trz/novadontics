@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import { PracticeLogos } from "./TrustProof";
 
 const audiences = [
   { title: "Independent practices", text: "A clear, connected foundation for the everyday work of running a dental practice.", href: "https://www.novadontics.com/solutions/independent-practices" },
@@ -13,7 +12,6 @@ export function PracticeAndClosing() {
     <>
       <section id="solutions" className="audience-section" aria-labelledby="audience-title">
         <div className="site-container">
-          <PracticeLogos />
           <div className="audience-heading">
             <h2 id="audience-title">Every practice<br />has its <em>own way.</em></h2>
             <p>One connected platform, thoughtfully built around the people and workflows that make your practice unique.</p>
