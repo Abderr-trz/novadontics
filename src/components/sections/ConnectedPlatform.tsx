@@ -5,19 +5,17 @@ import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { PracticeLogos } from "./TrustProof";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-/**
- * All four images are actual Novadontics assets bundled in /public/assets/novadontics.
- * The layered browser frames are decorative; the screenshots themselves are unaltered.
- */
-const screens = [
+// Every image below is an authentic Novadontics asset stored in the project.
+const secondaryScreens = [
   {
     kind: "patient",
     label: "Patient engagement",
     src: "/assets/novadontics/patient-engagement.avif",
-    alt: "Novadontics patient engagement software interface",
+    alt: "Novadontics patient engagement interface",
     width: 720,
     height: 480,
   },
@@ -33,18 +31,16 @@ const screens = [
     kind: "implant",
     label: "Implant workflows",
     src: "/assets/novadontics/implant-management.avif",
-    alt: "Novadontics implant management and case workflow interface",
+    alt: "Novadontics implant management interface",
     width: 720,
     height: 500,
   },
 ] as const;
 
-function WindowDots() {
+function BrowserChrome() {
   return (
     <span className="platform-window-dots" aria-hidden="true">
-      <span />
-      <span />
-      <span />
+      <span /><span /><span />
     </span>
   );
 }
@@ -55,122 +51,72 @@ export function ConnectedPlatform() {
   useGSAP(() => {
     const mm = gsap.matchMedia();
 
-    mm.add(
-      {
-        desktop: "(min-width: 1180px) and (min-height: 780px)",
-        reduce: "(prefers-reduced-motion: reduce)",
-      },
-      (context) => {
-        if (!context.conditions?.desktop || context.conditions?.reduce) return;
+    mm.add("(min-width: 1180px) and (prefers-reduced-motion: no-preference)", () => {
+      const stage = root.current?.querySelector(".platform-composition");
+      if (!stage) return;
 
-        const stage = root.current?.querySelector(".platform-composition");
-        if (!stage) return;
+      // Video reference @ 05–07s: four different windows rise from the bottom.
+      // This is tied to natural scroll, not to a forced/pinned timeline.
+      const timeline = gsap.timeline({
+        defaults: { ease: "none" },
+        scrollTrigger: {
+          trigger: stage,
+          start: "top 96%",
+          end: "top 33%",
+          scrub: 0.8,
+          invalidateOnRefresh: true,
+        },
+      });
 
-        // Scrolling controls a single, reversible sequence; no autoscroll or hijacking.
-        const timeline = gsap.timeline({
-          defaults: { ease: "none" },
-          scrollTrigger: {
-            trigger: stage,
-            start: "top 126px",
-            end: "+=90%",
-            pin: true,
-            scrub: 0.85,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        });
-
-        timeline
-          .fromTo(
-            ".platform-main-window",
-            { y: 62, scale: 0.925, autoAlpha: 0.45 },
-            { y: 0, scale: 1, autoAlpha: 1, duration: 0.55 },
-            0,
-          )
-          .fromTo(
-            ".platform-patient",
-            { x: 170, y: 95, scale: 0.78, autoAlpha: 0 },
-            { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.56 },
-            0.13,
-          )
-          .fromTo(
-            ".platform-clinical",
-            { x: 120, y: -30, scale: 0.83, autoAlpha: 0 },
-            { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.54 },
-            0.21,
-          )
-          .fromTo(
-            ".platform-implant",
-            { x: -150, y: 60, scale: 0.8, autoAlpha: 0 },
-            { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.54 },
-            0.29,
-          )
-          .to(".platform-main-window", { y: -7, duration: 0.22 }, 0.72)
-          .to(".platform-patient", { x: -7, y: -5, duration: 0.22 }, 0.72)
-          .to(".platform-clinical", { x: -9, y: 8, duration: 0.22 }, 0.72)
-          .to(".platform-implant", { x: 6, y: -5, duration: 0.22 }, 0.72)
-          .to({}, { duration: 0.12 });
-      },
-    );
+      timeline
+        .fromTo(".platform-main-window",
+          { y: 108, scale: .925, autoAlpha: .32 },
+          { y: 0, scale: 1, autoAlpha: 1, duration: .85 }, 0)
+        .fromTo(".platform-patient",
+          { x: 52, y: 125, scale: .86, autoAlpha: 0 },
+          { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .7 }, .17)
+        .fromTo(".platform-clinical",
+          { x: 62, y: 145, scale: .84, autoAlpha: 0 },
+          { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .7 }, .28)
+        .fromTo(".platform-implant",
+          { x: -65, y: 130, scale: .85, autoAlpha: 0 },
+          { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: .72 }, .36);
+    });
 
     return () => mm.revert();
   }, { scope: root });
 
   return (
-    <section
-      id="platform"
-      className="platform-showcase"
-      ref={root}
-      aria-labelledby="platform-showcase-title"
-    >
+    <section id="platform" ref={root} className="platform-showcase" aria-labelledby="platform-scene-title">
+      <h2 id="platform-scene-title" className="sr-only">One connected dental practice in Novadontics</h2>
       <div className="platform-showcase-glow" aria-hidden="true" />
       <div className="platform-showcase-lines" aria-hidden="true" />
 
-      <div className="site-container platform-showcase-heading">
-        <h2 id="platform-showcase-title">
-          One platform. <span>Every part of your practice.</span>
-        </h2>
-        <p>
-          One connected workspace for the tools your team uses every day — from
-          patient communication to imaging and implant care.
-        </p>
-      </div>
-
-      <div
-        className="platform-composition"
-        aria-label="Four genuine Novadontics software screens shown together"
-      >
+      <div className="platform-composition" aria-label="Actual Novadontics practice-management, patient engagement, clinical imaging and implant workflows shown together">
         <figure className="platform-main-window">
           <div className="platform-window-chrome">
-            <WindowDots />
+            <BrowserChrome />
             <span className="platform-window-heading">Practice management</span>
           </div>
           <div className="platform-main-image">
             <Image
               src="/assets/novadontics/practice-management.avif"
-              alt="Novadontics practice management dashboard"
+              alt="Actual Novadontics practice management dashboard"
               width={1290}
               height={612}
               sizes="(max-width: 767px) 94vw, (max-width: 1179px) 88vw, 74vw"
+              priority
             />
           </div>
           <figcaption className="platform-main-footer">
-            <span className="platform-status-dot" />
-            Connected practice management
+            <span className="platform-status-dot" /> One connected workspace
           </figcaption>
         </figure>
 
-        {screens.map((screen) => (
-          <figure
-            className={`platform-floating-window platform-${screen.kind}`}
-            key={screen.kind}
-          >
-            <div className="platform-window-chrome">
-              <WindowDots />
-            </div>
-            <figcaption className="platform-floating-label">
-              {screen.label}
-            </figcaption>
+        {secondaryScreens.map((screen) => (
+          <figure className={`platform-floating-window platform-${screen.kind}`} key={screen.kind}>
+            <div className="platform-window-chrome"><BrowserChrome /></div>
+            <figcaption className="platform-floating-label">{screen.label}</figcaption>
             <div className="platform-floating-image">
               <Image
                 src={screen.src}
@@ -182,6 +128,10 @@ export function ConnectedPlatform() {
             </div>
           </figure>
         ))}
+      </div>
+
+      <div className="site-container platform-client-strip">
+        <PracticeLogos />
       </div>
     </section>
   );
