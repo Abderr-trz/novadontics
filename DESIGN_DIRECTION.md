@@ -101,3 +101,25 @@ The user rejected the giant generic image-holder surfaces, green accents, oversi
 - Product Experience photography/UI: original assets already include their OWN built-in frame/backdrop. Rendering them inside another padded, shadowed rounded box is prohibited. In `ProductExperience.tsx` use a single `product-story-media--{workflow.id}` figure, in `product-story.css` with NO extra padding, background, border, shadow or browser chrome. Respect natural image aspect ratios and their intrinsic art direction (practice neutral; patient forms warm; imaging dark; implant tablet on ivory).
 - Use narrow active rail orange stroke, restrained text and large natural product visuals; keep GSAP scroll tracking and accessible anchors.
 - Keep `main` untouched until QA and explicit user approval. Validate 1440, 1024, 390, 360 widths and reduced motion.
+
+
+## November 4 — Definitive One Patient Journey visual redesign
+
+User asked to thoroughly understand and elevate the One patient journey / One connected record section, using external premium SaaS motion references and the authentic dental workflows.
+
+Design sources studied:
+- Attio (https://attio.com/) — readable, restrained motion and product storytelling.
+- Linear design rationale (https://linear.app/now/behind-the-latest-design-refresh) — remove unnecessary UI chrome and borders; structure is felt, not imposed.
+- Official Novadontics: https://www.novadontics.com/platform/practice-management and https://www.novadontics.com/platform/clinical-imaging — scheduling, clinical record, imaging, billing and patient communication are connected workflows.
+
+Final code at `src/components/sections/PatientJourney.tsx` and `src/app/patient-journey.css`:
+- Editorial intro on warm ivory with an orange-tinted label and a two-tone Inter heading **One patient journey. One connected record.**
+- FULL-BLEED charcoal scrolling chapter; not a huge rounded card, boxed dashboard, or fake browser window.
+- Genuine product screen remains **sticky left**; five naturally scrollable treatment moments appear **right** as a continuous timeline (appointment, record, imaging, billing and payments, follow-up).
+- Soft orange/yellow vertical progress line is scrubbed through GSAP ScrollTrigger; active moment changes with forward and reverse scroll; screen transitions use restrained opacity/scale and genuine Novadontics images. No mousewheel interception, forced pinning or fabricated patient data.
+- Screen max-width ~700px / max-height 470px with original art direction preserved.
+- All five stages are exposed as a sequential static flow on narrow viewports (<960px), shorter desktop heights (<700px) and reduced-motion preference. No unverified patient claims.
+- Existing Inter heading/body hierarchy and brand orange/yellow/slate used; typography mostly 31–43px for stage headlines, 15–17px for supporting text.
+- Actual desktop browser QA (TinyFish) at approximately 1368x831 reported sticky screen, 5 right stages, vertical progress, smooth screen transitions, no clipping/overlap/excess whitespace. Mobile was NOT visually verified: check 390px and 768px before final merge.
+- Branch preview: https://novadontics-nr104wiua-abderrahim-tarzoukt-s-projects.vercel.app/ (Vercel Deployment Protection; obtain share access via Vercel tool).
+- Never merge to `main` before user visual review.
