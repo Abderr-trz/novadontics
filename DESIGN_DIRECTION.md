@@ -18,19 +18,20 @@ Do NOT revert this centered hero to the former asymmetric layout during later Co
 - Primary CTA is Book a free demo linking to official Novadontics URL.
 - Trust signals should be sourced from official Novadontics and kept visually restrained.
 
-## Page composition
-1. Hero: Attio-like centered navigation and centered type, minimal pill and buttons, product screenshot below the fold, faint ambient glow. No awards bar in hero.
-2. Connected practice: light Attio-like four-window composition: large authentic Novadontics practice-management screenshot centered; patient-engagement upper-left, clinical-imaging lower-left on charcoal window, implant-management right. GSAP scroll-controlled staggered entrance on large desktop; static responsive grid on tablet/mobile. Use the genuine /public/assets/novadontics images; never use Attio interfaces.
-3. Product experience: four accessible tabs with big real product screenshots.
-4. Who it's for: verified practice logos, editorial photo, clean unnumbered link rows.
-5. Closing: confident type and a demo CTA.
+## Page composition (based on the user's 34-second Attio video)
+1. **Hero (00–05s)**: centered, large editorial type, a minimal pill and two accessible CTAs. NO duplicate screenshot in the hero. One continuous warm light canvas.
+2. **Screen composition (05–07s)**: four separate REAL Novadontics screenshots rise from the lower viewport with depth offsets, soft shadows and subtle browser chrome. They do not emerge from a single flat screenshot. Implemented in `src/components/sections/ConnectedPlatform.tsx` and `src/app/platform-showcase.css`.
+3. **Practice logos (07–09s)**: original Novadontics customer logos from `TrustProof.tsx` directly after the product composition. No repeated logos in the practice audience section.
+4. **Sticky workflow story (09–20s)**: a compact left-side navigation highlights the active chapter as the user naturally scrolls real product screenshots and narrative on the right. Implemented in `ProductExperience.tsx` and `src/app/product-story.css`.
+5. **Dark cinematic moment (21–25s)**: final CTA with original amber/orange halo that moves subtly with scroll, NOT an Attio visual asset. Implemented in `PracticeAndClosing.tsx` and `src/app/novadontics-brand-motion.css`.
+6. Preserve audience content and verified practice information; do not invent testimonials, business metrics or clinical data.
 
 ## Motion
-- Hero entrance: staggered lines, 0.65–1.1 second ease. No permanent blocking overlays.
-- Connected platform: reversible pinned/scrubbed GSAP layered-window reveal ONLY when viewport >=1180px and height >=780px and reduced motion is off. Each image appears separately, not a single flattened collage. Mobile/tablet shows visible static grid.
-- Product tabs: short nonblocking image reveal; use the same panel with proper ARIA and keyboard arrows.
-- No scroll hijacking; avoid multiple complex pins.
-- Mobile and reduced-motion users should see complete content without JavaScript choreography.
+- Hero: short GSAP entrance only, no scroll hijacking.
+- Layered collage: reversible GSAP scrubbed scroll entrance, start `top 96%` end `top 33%`. No pinning. Only desktop >=1180px and no reduced-motion preference; visible static multi-column/grid otherwise.
+- Product story: CSS `position: sticky` navigation (desktop >=900px); ScrollTrigger observes each section and updates active link on forward/reverse scroll. Product imagery has subtle scroll-linked opacity and position transitions. Mobile displays all chapters stacked.
+- Dark closing: gentle orbit scale/translation tied to scroll, reduced motion respected.
+- Do not add Lenis, smooth-scroll hijacking, multiple fullscreen pins or gratuitous gradients.
 
 ## Next session: priorities for Codex
 1. Run npm ci, npm run lint and npm run build. Fix compile, hydration and accessibility errors.
@@ -44,3 +45,9 @@ All refactor work is on design-refinement-editorial. Do not overwrite production
 
 ## November 4 — Multi-screen platform implementation
 The user selected the Attio multi-window screenshot as composition reference for the section after the hero. Implemented in `src/components/sections/ConnectedPlatform.tsx` and `src/app/platform-showcase.css`, loaded by `src/app/layout.tsx`. Subsequent product section typography/colors were harmonized in `src/app/globals.css` and `src/components/sections/ProductExperience.tsx`. No main branch changes. Build passed in Vercel preview. Visual QA remains blocked because Vercel Deployment Protection redirects TinyFish to login; authenticated browser verification is still required before merging. Ask user to connect an authorized Vercel account or use a TinyFish browser profile configured at https://agent.tinyfish.ai/profiles, then inspect both 1440px and 390px layouts and scroll forward/backward.
+
+## Brand colors verified against real SVG
+Logo icon: yellow `#FFF300`, orange `#EC8624`, gold `#FEB300`. Wordmark: gray `#697C7D`. Use these as carefully controlled accents on neutral white/charcoal backgrounds, NOT as giant saturated surfaces.
+
+## Current QA constraints
+Vercel preview deployments are protected by login. Automated browser tools see Vercel sign-in rather than the actual preview, so complete desktop/mobile visual QA and real scroll testing still require an authorized browser session. The GitHub branch is intentionally left separate from main until review.
