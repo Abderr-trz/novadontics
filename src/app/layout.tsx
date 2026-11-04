@@ -4,6 +4,8 @@ import "./globals.css";
 import "./platform-showcase.css";
 import "./product-story.css";
 import "./novadontics-brand-motion.css";
+import "./patient-journey.css";
+import "./trust-onboarding.css";
 import "./hero-platform-transition.css";
 
 const inter = Inter({
