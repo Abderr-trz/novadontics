@@ -127,3 +127,29 @@ body { background: #fff; color: var(--novadontics-ink); }
   .platform-client-strip .practice-proof-copy p { text-align: center; }
   .closing-section::before { top: -200px; width: 140vw; height: 680px; }
 }
+
+/* Scroll-reactive dark orbital accent (the abstract halo is original CSS, not Attio artwork). */
+.closing-section::before { content: none; }
+.closing-section .site-container { position: relative; z-index: 1; }
+.closing-orbit {
+  position: absolute;
+  z-index: -1;
+  top: -39vw;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(150vw, 1900px);
+  height: min(95vw, 1160px);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 224, 112, .34);
+  background: radial-gradient(ellipse at 50% 90%, rgba(255, 177, 50, .14), transparent 67%);
+  box-shadow: 0 0 104px rgba(236, 134, 36, .09), inset 0 0 100px rgba(255, 243, 0, .04);
+  pointer-events: none;
+}
+@media (max-width: 767px) {
+  .closing-orbit {
+    top: -225px;
+    width: 150vw;
+    height: 650px;
+    opacity: .72;
+  }
+}
