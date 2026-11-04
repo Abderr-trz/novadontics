@@ -65,7 +65,7 @@
   position: relative;
   isolation: isolate;
   width: min(calc(100% - 88px), 1400px);
-  height: clamp(560px, calc(100svh - 155px), 650px);
+  height: clamp(540px, calc(100svh - 108px), 650px);
   margin-inline: auto;
   overflow: hidden;
   border: 1px solid #e7e0d4;
@@ -298,7 +298,7 @@
 .pj-epilogue a:hover { gap: 14px; }
 .pj-mobile-flow { display: none; }
 
-@media (max-width: 1119px), (max-height: 719px) {
+@media (max-width: 1023px) {
   .pj-map { display: none; }
   .pj-epilogue { display: none; }
   .pj-mobile-flow {
@@ -395,8 +395,11 @@
   .pj-mobile-center > span { text-align: left; }
   .pj-mobile-node { padding-right: 0; gap: 12px; }
 }
+/* Reduced motion keeps the full five-node desktop composition: all connectors
+   are drawn without a pinned animation; phones still use the static list. */
 @media (prefers-reduced-motion: reduce) {
-  .pj-map, .pj-epilogue { display: none !important; }
-  .pj-mobile-flow { display: flex !important; flex-direction: column; }
-  .pj-node, .pj-node.is-connected, .pj-center-card, .pj-wire-active { transition: none !important; }
+  .pj-node, .pj-node.is-connected, .pj-center-card, .pj-wire-active {
+    transition: none !important;
+  }
+  .pj-wire-active { filter: none; }
 }
