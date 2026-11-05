@@ -10,6 +10,7 @@ import "./practice-proof.css";
 import "./hero-platform-transition.css";
 import "./continuous-flow.css";
 import "./brand-cta.css";
+import "./hero-cinematic.css";
 
 const inter = Inter({
   variable: "--font-inter",
