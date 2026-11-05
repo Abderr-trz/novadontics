@@ -45,44 +45,61 @@ export function HeroPlatformTransition() {
         },
       });
 
-      // Match the two reference states: hero product LARGE first; then the
-      // large window scales down and the other three come in around it.
-      const tl = gsap.timeline({
+      // The dashboard scales down first; related product windows are driven
+      // by the exact scroll progress instead of delayed nested tweens.
+      // This makes the final four-window state deterministic (including
+      // when navigating directly to #platform or reversing the scroll).
+      const range = () => "+=" + Math.max(520, Math.round(window.innerHeight * 1.05));
+
+      gsap.timeline({
         defaults: { ease: "none" },
         scrollTrigger: {
           trigger: stage,
           start: "top top+=72",
-          end: () => "+=" + Math.max(520, Math.round(window.innerHeight * 1.05)),
-          scrub: 0.8,
+          end: range,
+          scrub: 0.65,
           invalidateOnRefresh: true,
         },
-      });
+      })
+        .fromTo(
+          ".platform-main-window",
+          { autoAlpha: 1, y: 52, scale: 1.27 },
+          { autoAlpha: 1, y: 0, scale: 1, duration: 0.92, ease: "power2.inOut" },
+          0,
+        )
+        .to({}, { duration: 0.25 }, 0.92);
 
-      tl.fromTo(
-        ".platform-main-window",
-        { autoAlpha: 1, y: 52, scale: 1.27 },
-        { autoAlpha: 1, y: 0, scale: 1, duration: 0.91, ease: "power2.inOut" },
-        0,
-      )
-        .fromTo(
-          ".platform-patient",
-          { autoAlpha: 0, y: 102, x: 43, scale: 0.87 },
-          { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.58, ease: "power2.out" },
-          0.33,
-        )
-        .fromTo(
-          ".platform-clinical",
-          { autoAlpha: 0, y: 112, x: 67, scale: 0.86 },
-          { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.58, ease: "power2.out" },
-          0.45,
-        )
-        .fromTo(
-          ".platform-implant",
-          { autoAlpha: 0, y: 100, x: -65, scale: 0.87 },
-          { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.58, ease: "power2.out" },
-          0.56,
-        )
-        .to({}, { duration: 0.24 }, 1.17);
+      const satellites = [
+        { node: sticky.querySelector<HTMLElement>(".platform-patient"), at: 0.18, x: 45, y: 98 },
+        { node: sticky.querySelector<HTMLElement>(".platform-clinical"), at: 0.29, x: 64, y: 113 },
+        { node: sticky.querySelector<HTMLElement>(".platform-implant"), at: 0.39, x: -64, y: 105 },
+      ];
+
+      const updateSatellites = (progress: number) => {
+        satellites.forEach(({ node, at, x, y }) => {
+          if (!node) return;
+          const raw = gsap.utils.clamp(0, 1, (progress - at) / 0.34);
+          const reveal = raw * raw * (3 - 2 * raw);
+          gsap.set(node, {
+            opacity: reveal,
+            visibility: raw < 0.005 ? "hidden" : "visible",
+            x: x * (1 - reveal),
+            y: y * (1 - reveal),
+            scale: 0.88 + reveal * 0.12,
+          });
+        });
+      };
+
+      const revealTrigger = ScrollTrigger.create({
+        trigger: stage,
+        start: "top top+=72",
+        end: range,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => updateSatellites(self.progress),
+        onRefresh: (self) => updateSatellites(self.progress),
+      });
+      updateSatellites(revealTrigger.progress);
+      return () => revealTrigger.kill();
     });
 
     // Tablet: do not force a desktop overlap on a three-column product grid.
