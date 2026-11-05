@@ -206,10 +206,10 @@
 .pj-center-card {
   position: absolute;
   z-index: 4;
-  left: 36%;
-  top: 34%;
-  width: 28%;
-  min-height: 143px;
+  left: 40%;
+  top: 33%;
+  width: 20%;
+  min-height: 160px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -232,7 +232,7 @@
   padding: 14px 15px;
 }
 .pj-center-brand img {
-  width: clamp(43px, 4vw, 62px);
+  width: clamp(56px, 5vw, 76px);
   height: auto;
   display: block;
 }
