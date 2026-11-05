@@ -1,0 +1,107 @@
+/* Novadontics branded call-to-actions.
+   Orbiting hero pill: an uninterrupted, restrained colored light traveling
+   along the border only (not an entire spinning button or glowing rectangle).
+   The palette is taken directly from the official Novadontics SVG. */
+
+@property --nov-orbit-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes nov-orbit-outline {
+  from { --nov-orbit-angle: 0deg; }
+  to { --nov-orbit-angle: 360deg; }
+}
+
+.hero-platform-transition .hero-centered .hero-pill {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  border: 1px solid #eae6de;
+  background: #fffefa;
+  color: #505d5d;
+  box-shadow: 0 1px 3px rgba(79, 69, 51, .035);
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+
+.hero-platform-transition .hero-centered .hero-pill::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--nov-orbit-angle),
+    transparent 0deg,
+    transparent 257deg,
+    rgba(255, 243, 0, .25) 274deg,
+    #fff300 299deg,
+    #feb300 316deg,
+    #ec8624 335deg,
+    transparent 356deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: nov-orbit-outline 3.8s linear infinite;
+}
+
+.hero-platform-transition .hero-centered .hero-pill:hover {
+  background: #fff9ee;
+  border-color: #ecd3a7;
+  color: #8d511c;
+}
+.hero-platform-transition .hero-centered .hero-pill svg {
+  color: #b36a2a;
+  transition: transform .25s ease;
+}
+.hero-platform-transition .hero-centered .hero-pill:hover svg {
+  transform: translateX(3px);
+}
+
+/* Replace generic black CTA rectangles with official Novadontics orange.
+   Dark lettering on orange remains significantly more legible than white
+   lettering on a light brand orange. */
+.site-header .nav-demo,
+.hero-button-primary {
+  color: #242629;
+  background: #ec8624;
+  border-color: #ec8624;
+  box-shadow: 0 3px 12px rgba(190, 103, 24, .13);
+  transition:
+    background-color .24s ease,
+    border-color .24s ease,
+    box-shadow .24s ease,
+    transform .24s ease;
+}
+.site-header .nav-demo:hover,
+.hero-button-primary:hover {
+  color: #242629;
+  background: #feb300;
+  border-color: #feb300;
+  box-shadow: 0 7px 18px rgba(199, 129, 24, .18);
+  transform: translateY(-1px);
+}
+.site-header .nav-demo:focus-visible,
+.hero-button-primary:focus-visible,
+.hero-platform-transition .hero-centered .hero-pill:focus-visible {
+  outline: 2px solid #b45b13;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-platform-transition .hero-centered .hero-pill::before {
+    animation: none;
+    background: conic-gradient(from 295deg, transparent 0deg, #feb300 55deg, #ec8624 77deg, transparent 92deg);
+  }
+  .hero-platform-transition .hero-centered .hero-pill svg,
+  .hero-button-primary,
+  .site-header .nav-demo {
+    transition: none;
+  }
+}
