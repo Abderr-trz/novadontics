@@ -1,6 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import "./platform-showcase.css";
+import "./product-story.css";
+import "./novadontics-brand-motion.css";
+import "./patient-journey.css";
+import "./trust-onboarding.css";
+import "./practice-proof.css";
+import "./hero-platform-transition.css";
+import "./continuous-flow.css";
+import "./brand-cta.css";
+import "./hero-cinematic.css";
+import "./review-cards.css";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -8,14 +19,11 @@ const inter = Inter({
   display: "swap",
 });
 
-const manrope = Manrope({
-  variable: "--font-manrope",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"),
+  ),
   title: "Novadontics — All-in-One Dental Practice Management Software",
   description:
     "Novadontics connects dental scheduling, patient engagement, clinical management, imaging, billing, and implant workflows within one integrated cloud-based platform.",
@@ -32,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${manrope.variable} h-full antialiased`}
+      className={`${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-canvas text-ink">
         {children}

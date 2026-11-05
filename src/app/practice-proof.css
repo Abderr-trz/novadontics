@@ -1,0 +1,113 @@
+/* Trusted practice logos — editorial wordmark wall.
+   Original customer logos, no boxes, no tiles, no divider grid. */
+
+.platform-client-strip {
+  position: relative;
+  width: min(calc(100% - 96px), 1280px);
+  margin: clamp(30px, 3.3vw, 55px) auto 0;
+}
+.platform-client-strip .practice-proof {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(35px, 4.3vw, 63px);
+  min-height: 0;
+  padding: clamp(34px, 4vw, 56px) 0 clamp(32px, 4.3vw, 64px);
+  margin: 0;
+  border: none;
+  background: transparent;
+}
+.platform-client-strip .practice-proof::before,
+.platform-client-strip .practice-proof::after,
+.platform-client-strip .practice-proof-rule {
+  content: none;
+  display: none;
+}
+.platform-client-strip .practice-proof-intro {
+  margin: 0;
+  text-align: center;
+  color: #65716f;
+  font: 515 clamp(12px, 1.02vw, 14px)/1.6 var(--font-inter), sans-serif;
+  letter-spacing: -.01em;
+}
+.platform-client-strip .practice-proof-intro span {
+  color: #a36a31;
+}
+.platform-client-strip .practice-logo-grid {
+  display: grid;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: clamp(22px, 3.8vw, 65px);
+  row-gap: clamp(22px, 3.8vw, 56px);
+  align-items: center;
+  justify-items: stretch;
+  border: 0;
+}
+.platform-client-strip .practice-logo-grid li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: clamp(64px, 6vw, 84px);
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.platform-client-strip .practice-logo {
+  display: block;
+  width: min(100%, 178px);
+  height: 69px;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center;
+  filter: grayscale(1) contrast(1.24);
+  opacity: .91;
+  transition: opacity .3s ease, filter .35s ease, transform .35s cubic-bezier(.2,.7,.2,1);
+}
+.platform-client-strip .practice-logo-grid li:hover .practice-logo {
+  filter: grayscale(.13) contrast(1.06);
+  opacity: 1;
+  transform: translateY(-3px);
+}
+/* Optical size compensation: logos have different whitespace built into their source files. */
+.platform-client-strip .practice-logo-grid li:nth-child(1) .practice-logo { width: min(100%, 136px); }
+.platform-client-strip .practice-logo-grid li:nth-child(2) .practice-logo { width: min(100%, 176px); }
+.platform-client-strip .practice-logo-grid li:nth-child(3) .practice-logo { width: min(100%, 181px); }
+.platform-client-strip .practice-logo-grid li:nth-child(4) .practice-logo { width: min(100%, 185px); }
+.platform-client-strip .practice-logo-grid li:nth-child(5) .practice-logo { width: min(100%, 186px); }
+.platform-client-strip .practice-logo-grid li:nth-child(6) .practice-logo { width: min(100%, 190px); }
+.platform-client-strip .practice-logo-grid li:nth-child(7) .practice-logo { width: min(100%, 188px); }
+.platform-client-strip .practice-logo-grid li:nth-child(8) .practice-logo { width: min(100%, 187px); }
+
+@media (max-width: 1023px) {
+  .platform-client-strip { width: min(calc(100% - 64px), 850px); }
+  .platform-client-strip .practice-proof { gap: 30px; padding: 34px 0 45px; }
+  .platform-client-strip .practice-logo-grid { column-gap: 15px; row-gap: 22px; }
+  .platform-client-strip .practice-logo { height: 62px; }
+}
+@media (max-width: 600px) {
+  .platform-client-strip { width: calc(100% - 42px); }
+  .platform-client-strip .practice-proof { gap: 22px; padding: 26px 0 34px; }
+  .platform-client-strip .practice-proof-intro { max-width: 290px; align-self: center; font-size: 12px; }
+  .platform-client-strip .practice-logo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 22px;
+    row-gap: 12px;
+  }
+  .platform-client-strip .practice-logo-grid li { min-height: 75px; }
+  .platform-client-strip .practice-logo { height: 57px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .platform-client-strip .practice-proof-intro,
+  .platform-client-strip .practice-logo-grid li {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  .platform-client-strip .practice-logo { transition: none; }
+}

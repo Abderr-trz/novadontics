@@ -1,48 +1,54 @@
-﻿"use client";
+"use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { ArrowRight, ArrowDownRight, Cloud, ShieldCheck, MonitorSmartphone } from "lucide-react";
-import { AwardBadges, AwardsBand } from "./TrustProof";
+import { ArrowRight } from "lucide-react";
 
 gsap.registerPlugin(useGSAP);
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
+
   useGSAP(() => {
     const mm = gsap.matchMedia();
     mm.add("(prefers-reduced-motion: no-preference)", () => {
-      gsap.from(".hero-enter", { y: 24, opacity: 0, duration: 0.85, stagger: 0.1, ease: "power3.out" });
-      gsap.from(".hero-product", { y: 35, opacity: 0, duration: 1.1, delay: 0.3, ease: "power3.out" });
+      gsap.timeline({ defaults: { ease: "power3.out" } })
+        .from(".hero-pill", { opacity: 0, y: 12, duration: 0.55 })
+        .from(".hero-title-line", { opacity: 0, y: 26, duration: 0.74, stagger: 0.09 }, "-=0.33")
+        .from(".hero-lead", { opacity: 0, y: 12, duration: 0.60 }, "-=0.40")
+        .from(".hero-actions", { opacity: 0, y: 10, duration: 0.58 }, "-=0.37");
     });
     return () => mm.revert();
   }, { scope: root });
 
   return (
-    <section ref={root} className="hero-section" aria-labelledby="hero-title">
-      <div className="site-container">
-        <div className="hero-editorial">
-          <div>
-            <p className="section-kicker hero-enter"><span /> BUILT FOR THE WAY YOU PRACTICE</p>
-            <h1 id="hero-title" className="hero-enter">Your entire practice.<br /><span>Finally in sync.</span></h1>
-          </div>
-          <div className="hero-summary hero-enter">
-            <p>Scheduling, patient communication, imaging and billing. One connected cloud platform for modern dental practices.</p>
-            <a href="https://www.novadontics.com/book-a-demo" className="primary-button">Book a Free Demo <ArrowRight size={17} aria-hidden="true" /></a>
-            <a href="#platform" className="text-link">Explore the Platform <ArrowDownRight size={17} aria-hidden="true" /></a>
+    <section ref={root} className="hero-section hero-centered" aria-labelledby="hero-title">
+      <div className="site-container hero-content">
+        <div className="hero-fade-group">
+          <a className="hero-pill" href="#platform">
+            <span>Meet the connected dental practice</span>
+            <ArrowRight size={15} strokeWidth={1.8} aria-hidden="true" />
+          </a>
+
+          <h1 id="hero-title" className="hero-title">
+            <span className="hero-title-line">Your entire practice.</span>
+            <span className="hero-title-line">Finally in sync.</span>
+          </h1>
+
+          <p className="hero-lead">
+            Appointments, clinical imaging, billing and patient conversations —
+            all working together in one platform built for modern dental practices.
+          </p>
+
+          <div className="hero-actions">
+            <a className="hero-button-secondary" href="#features">Explore the platform</a>
+            <a className="hero-button-primary" href="https://www.novadontics.com/book-a-demo">
+              Book a free demo
+            </a>
           </div>
         </div>
-        <div className="hero-product">
-          <div className="hero-product-side"><span className="product-number">01—05</span><p>Every workflow.<br /> <strong>One workspace.</strong></p><span className="product-side-rule" /><span className="product-side-note">THE NOVADONTICS<br />PLATFORM</span></div>
-          <div className="hero-product-image"><Image src="/assets/novadontics/practice-management.avif" alt="Novadontics dashboard with practice activity, patient status and reporting" width={1290} height={612} priority sizes="(max-width: 767px) 100vw, 75vw" /></div>
-          <div className="hero-product-bottom"><span><Cloud size={15} aria-hidden="true" /> Cloud-based</span><span><ShieldCheck size={15} aria-hidden="true" /> Secure by design</span><span><MonitorSmartphone size={15} aria-hidden="true" /> Wherever you work</span></div>
-        </div>
-        <AwardBadges />
       </div>
-      <AwardsBand />
     </section>
   );
 }
-

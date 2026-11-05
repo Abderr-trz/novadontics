@@ -1,0 +1,142 @@
+/* A continuous Novadontics page, not a stack of boxed landing-page templates.
+   Hero -> software -> real customers -> product stories -> patient journey ->
+   practices -> onboarding share one neutral canvas and a consistent spacing rhythm.
+   Internal product dividers remain as navigational structure, not section frames. */
+
+:root {
+  --page-canvas: #fbfaf7;
+  --page-warm-canvas: #f6f1e8;
+}
+
+body, #main {
+  background: var(--page-canvas);
+}
+.hero-platform-transition {
+  background: linear-gradient(
+    180deg,
+    #fff 0%,
+    #fffefa 28%,
+    #fffaf2 59%,
+    #fcf9f3 78%,
+    var(--page-canvas) 100%
+  );
+}
+.hero-platform-transition .platform-showcase {
+  background: transparent;
+  padding-bottom: clamp(26px, 3.5vw, 52px);
+}
+.hero-platform-transition .platform-client-strip {
+  margin-top: clamp(28px, 3.5vw, 54px);
+}
+.hero-platform-transition .practice-proof {
+  border: 0;
+  padding-block: clamp(30px, 3.5vw, 54px) clamp(32px, 3.8vw, 59px);
+}
+
+/* Keep the Attio-inspired split layout without putting the whole chapter
+   into an outlined rectangular panel. */
+.product-story-section,
+.journey-section,
+.audience-section {
+  background: var(--page-canvas);
+  border-top: 0;
+  border-bottom: 0;
+}
+.product-story-section {
+  padding-top: clamp(28px, 3.7vw, 56px);
+  padding-bottom: clamp(42px, 5.5vw, 80px);
+}
+.product-story-shell {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.product-story-heading {
+  border-bottom: 0;
+}
+.product-story-grid::before {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(204, 195, 183, .48) 12%,
+    rgba(204, 195, 183, .48) 88%,
+    transparent
+  );
+}
+.product-story-panel {
+  border-bottom-color: rgba(212, 207, 196, .45);
+}
+.product-story-panel:last-child { border-bottom: 0; }
+
+.journey-section {
+  padding-top: clamp(63px, 6.5vw, 100px);
+  padding-bottom: clamp(51px, 5.9vw, 83px);
+}
+.audience-section {
+  padding-top: clamp(54px, 5.7vw, 86px);
+  padding-bottom: clamp(69px, 7.5vw, 115px);
+}
+/* A testimonial is part of the same narrative, not another full section card. */
+.customer-voice {
+  background: #f4f1ec;
+  border: 0;
+  box-shadow: none;
+  margin-top: clamp(83px, 8.5vw, 134px);
+}
+.customer-voice-photo { background: #ebe8e1; }
+
+/* Onboarding gradually warms the same canvas, then transitions to the
+   intentionally darker closing CTA, without a hard horizontal dividing band. */
+.switch-section {
+  background: linear-gradient(
+    180deg,
+    var(--page-canvas) 0%,
+    #faf7f0 36%,
+    #f7f1e8 70%,
+    #efebe4 100%
+  );
+  padding-top: clamp(77px, 7.7vw, 123px);
+  padding-bottom: clamp(85px, 8.7vw, 135px);
+}
+.switch-support {
+  border-color: rgba(205, 190, 168, .42);
+  background: rgba(255, 255, 255, .66);
+  box-shadow: none;
+}
+.closing-section {
+  background: linear-gradient(
+    180deg,
+    #efebe4 0,
+    #bcb9b2 58px,
+    #5f6160 131px,
+    #272b2c 192px,
+    #1e2224 252px
+  );
+  padding-top: clamp(205px, 19vw, 260px);
+}
+
+/* Responsive editorial rhythm: the same site, not separate mobile "cards". */
+@media (max-width: 959px) {
+  .product-story-section { padding-top: 45px; padding-bottom: 58px; }
+  .journey-section { padding-top: 68px; padding-bottom: 63px; }
+  .audience-section { padding-top: 51px; padding-bottom: 85px; }
+  .switch-section { padding-top: 72px; padding-bottom: 98px; }
+  .closing-section { padding-top: 190px; }
+}
+@media (max-width: 600px) {
+  .hero-platform-transition .platform-showcase { padding-bottom: 24px; }
+  .product-story-section { padding-top: 28px; padding-bottom: 54px; }
+  .product-story-heading { padding-bottom: 33px; }
+  .journey-section { padding-top: 54px; padding-bottom: 53px; }
+  .audience-section { padding-top: 44px; padding-bottom: 65px; }
+  .customer-voice { margin-top: 72px; }
+  .switch-section { padding-top: 67px; padding-bottom: 82px; }
+  .closing-section { padding-top: 184px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-platform-transition,
+  .switch-section,
+  .closing-section {
+    scroll-behavior: auto;
+  }
+}

@@ -7,3 +7,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Novadontics design direction
+
+Before touching visual components or motion, read `DESIGN_DIRECTION.md`. Preserve original assets and the product-first editorial aesthetic. Do not add section numbers, generic decorative kickers, or unverified marketing claims. Test visual changes at desktop and mobile sizes.

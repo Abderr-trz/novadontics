@@ -1,0 +1,335 @@
+/* NOVADONTICS | One patient journey, one connected record.
+   Drawn from the user's 12.4s / 60fps reference video: an anchored five-node
+   workflow, dot-grid canvas and orange connectors progressively tracing to a
+   shared Novadontics record. No fake browsers, generic dashboard boxes, or
+   continuous marquee. */
+.journey-section {
+  position: relative;
+  padding: clamp(92px, 9vw, 144px) 0 clamp(82px, 8vw, 116px);
+  background: #fbfaf7;
+  color: #242629;
+}
+.journey-intro {
+  position: relative;
+  z-index: 1;
+  background: #fbfaf7;
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(260px, .82fr);
+  gap: clamp(38px, 7vw, 130px);
+  align-items: end;
+  padding-bottom: clamp(40px, 4.1vw, 60px);
+}
+.journey-eyebrow {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  margin-bottom: clamp(29px, 3vw, 43px);
+  padding: 6px 12px;
+  border: 1px solid #f4dec2;
+  border-radius: 9px;
+  background: #fff0dc;
+  color: #a05e22;
+  font: 560 12px/1.35 var(--font-inter), Arial, sans-serif;
+  letter-spacing: -.01em;
+}
+.journey-intro h2 {
+  max-width: 890px;
+  margin: 0;
+  font: 575 clamp(38px, 4.1vw, 57px)/1.15 var(--font-inter), Arial, sans-serif;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+.journey-intro h2 span {
+  display: block;
+  color: #75807e;
+  font-weight: 440;
+}
+.journey-intro-side {
+  padding-bottom: 9px;
+}
+.journey-intro-side p {
+  max-width: 360px;
+  margin: 0 0 16px;
+  color: #707b7a;
+  font: 425 clamp(15px, 1.15vw, 17px)/1.65 var(--font-inter), Arial, sans-serif;
+  letter-spacing: -.007em;
+}
+.journey-scroll-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #a0632b;
+  font: 550 13px/1.4 var(--font-inter), Arial, sans-serif;
+}
+
+/* The diagram sticks only inside its own scroll scene, never over the title. */
+.pj-scroll-scene {
+  position: relative;
+  height: calc(650px + 185svh);
+  padding: 0;
+  margin: 0;
+}
+.pj-map {
+  position: sticky;
+  top: 80px;
+  isolation: isolate;
+  width: min(calc(100% - 88px), 1400px);
+  height: clamp(490px, calc(100svh - 96px), 650px);
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid #e7e0d4;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle, rgba(196,174,143,.35) .7px, transparent 1.1px) 0 0 / 23px 23px,
+    radial-gradient(ellipse 72% 61% at 50% 45%, #fffefd 0%, #fffdfa 42%, rgba(255,249,235,.6) 100%),
+    #fcfbf6;
+  box-shadow: 0 16px 50px rgba(112,86,50,.036);
+}
+.pj-map-topline {
+  position: absolute;
+  z-index: 5;
+  top: 22px;
+  left: clamp(23px, 2.5vw, 39px);
+  right: clamp(23px, 2.5vw, 39px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  pointer-events: none;
+}
+.pj-map-dot {
+  display: inline-block;
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e7aa32;
+}
+.pj-map-progress {
+  color: #a17f51;
+  font: 580 11px/1.4 var(--font-inter), Arial, sans-serif;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.01em;
+}
+.pj-connections {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+.pj-connections path {
+  fill: none;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.pj-wire-base { stroke: #ddd9d0; }
+.pj-wire-active {
+  stroke: #efaa13;
+  stroke-width: 2.65 !important;
+  filter: drop-shadow(0 0 3px rgba(255,195,40,.18));
+}
+
+.pj-node {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  width: 24%;
+  min-height: 113px;
+  padding: 15px 19px 17px;
+  border: 1px solid #e4dfd5;
+  border-radius: 13px;
+  color: #282c2b;
+  background: rgba(255,255,255,.97);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 7px 23px rgba(91,76,52,.045), 0 1px 2px rgba(69,58,43,.03);
+  transform-origin: center;
+  transition: border-color .27s ease, box-shadow .27s ease, background-color .27s ease;
+}
+.pj-node:hover, .pj-node:focus-visible {
+  border-color: #e9b36f;
+  box-shadow: 0 12px 27px rgba(147,106,54,.10);
+}
+.pj-node.is-connected {
+  border-color: #ecd7b0;
+  background: #fffefd;
+  box-shadow: 0 9px 28px rgba(184,136,66,.08), 0 0 0 1px rgba(249,197,85,.06);
+}
+.pj-node--appointment { top: 14%; left: 7%; }
+.pj-node--record      { top: 14%; right: 7%; }
+.pj-node--imaging     { top: 55%; left: 7%; }
+.pj-node--billing     { top: 55%; right: 7%; }
+.pj-node--followup    { top: 76%; left: 36%; width: 28%; min-height: 109px; }
+.pj-node-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 9px;
+  color: #9a7537;
+}
+.pj-node.is-connected .pj-node-top { color: #bd781c; }
+.pj-node-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+  color: #b4b2ab;
+  font: 550 10px/1.3 var(--font-inter), Arial, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+.pj-node.is-connected .pj-node-status { color: #98784d; }
+.pj-node strong {
+  display: block;
+  color: #282b2c;
+  font: 600 clamp(14px, 1.32vw, 18px)/1.22 var(--font-inter), Arial, sans-serif;
+  letter-spacing: -.025em;
+}
+.pj-node-description {
+  display: block;
+  margin-top: 7px;
+  color: #858b89;
+  font: 420 clamp(11px, .94vw, 13px)/1.4 var(--font-inter), Arial, sans-serif;
+  letter-spacing: -.008em;
+}
+
+/* Official brand at the center; no fabricated patient profile or fake data. */
+.pj-center-card {
+  position: absolute;
+  z-index: 4;
+  left: 40%;
+  top: 33%;
+  width: 20%;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #e6d6b8;
+  border-radius: 15px;
+  color: #47433c;
+  background: rgba(255,255,255,.96);
+  box-shadow: 0 18px 35px rgba(113,92,57,.09), 0 0 0 5px rgba(255,250,236,.55);
+}
+.pj-center-card.is-complete {
+  border-color: #e3c78d;
+  box-shadow: 0 20px 41px rgba(140,97,42,.14), 0 0 0 6px rgba(255,235,182,.18);
+}
+.pj-center-brand {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding: 14px 15px;
+}
+.pj-center-brand img {
+  width: clamp(56px, 5vw, 76px);
+  height: auto;
+  display: block;
+}
+.pj-mobile-flow { display: none; }
+
+@media (max-width: 1023px) {
+  .pj-scroll-scene { display: none; }
+  .journey-scroll-hint { display: none; }
+  .pj-mobile-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    max-width: 850px;
+    padding: 17px 0 55px;
+  }
+  .pj-mobile-center {
+    display: grid;
+    place-items: center;
+    width: 116px;
+    min-height: 102px;
+    margin: 0 auto 23px;
+    padding: 18px;
+    border: 1px solid #ebdbc5;
+    border-radius: 12px;
+    background: #fff9ee;
+  }
+  .pj-mobile-center img { display: block; width: 48px; height: auto; }
+  .pj-mobile-node {
+    position: relative;
+    display: grid;
+    grid-template-columns: 35px minmax(0, 1fr) 26px;
+    align-items: start;
+    gap: 22px;
+    padding: 25px 12px 26px 2px;
+    border-bottom: 1px solid #e9e2d8;
+  }
+  .pj-mobile-node:last-of-type { border-bottom: 0; }
+  .pj-mobile-node-icon {
+    display: grid;
+    place-items: center;
+    width: 35px;
+    height: 35px;
+    color: #a56825;
+    background: #fff0d9;
+    border: 1px solid #f1ddc2;
+    border-radius: 9px;
+  }
+  .pj-mobile-number {
+    display: block;
+    margin: 0 0 6px;
+    color: #a77944;
+    font: 550 11px/1.4 var(--font-inter), Arial, sans-serif;
+    letter-spacing: .04em;
+  }
+  .pj-mobile-node h3 {
+    color: #242629;
+    font: 600 clamp(21px, 3.3vw, 28px)/1.25 var(--font-inter), Arial, sans-serif;
+    letter-spacing: -.035em;
+  }
+  .pj-mobile-node p {
+    max-width: 560px;
+    margin-top: 8px;
+    color: #73807d;
+    font: 425 14px/1.65 var(--font-inter), Arial, sans-serif;
+  }
+  .pj-mobile-check { color: #bc833a; margin-top: 10px; }
+
+}
+@media (max-width: 767px) {
+  .journey-section { padding: 77px 0 58px; }
+  .journey-intro { display: block; padding-bottom: 38px; }
+  .journey-eyebrow { font-size: 11px; margin-bottom: 26px; }
+  .journey-intro h2 { font-size: clamp(35px, 7.6vw, 49px); line-height: 1.16; }
+  .journey-intro-side { margin-top: 20px; padding-bottom: 0; }
+  .journey-intro-side p { font-size: 14.5px; margin-bottom: 12px; }
+  .journey-scroll-hint { font-size: 12px; }
+  .pj-mobile-node { gap: 15px; grid-template-columns: 35px minmax(0,1fr) 18px; }
+  .pj-mobile-node h3 { font-size: 21px; }
+  .pj-mobile-node p { font-size: 13.5px; }
+}
+@media (max-width: 420px) {
+  .pj-mobile-node { padding-right: 0; gap: 12px; }
+}
+/* Reduced motion keeps the full five-node desktop composition: all connectors
+   are drawn without a pinned animation; phones still use the static list. */
+@media (min-width: 1024px) and (max-height: 579px) {
+  .pj-scroll-scene { height: auto; }
+  .pj-map { position: relative; top: 0; }
+  .journey-scroll-hint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pj-scroll-scene { height: auto; }
+  .pj-map { position: relative; top: 0; }
+  .journey-scroll-hint { display: none; }
+  .pj-node, .pj-node.is-connected, .pj-center-card, .pj-wire-active {
+    transition: none !important;
+  }
+  .pj-wire-active { filter: none; }
+}

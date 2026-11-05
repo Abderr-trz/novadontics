@@ -1,0 +1,149 @@
+/* Novadontics review concepts, with the authentic customer story left intact.
+   Cards are small, disciplined UI surfaces—not floating template widgets. */
+
+.review-examples {
+  position: relative;
+  width: 100%;
+  margin-top: clamp(60px, 7vw, 105px);
+  padding-bottom: clamp(10px, 2vw, 28px);
+}
+
+.review-examples-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 28px;
+  margin-bottom: clamp(25px, 3vw, 39px);
+}
+.review-examples-kicker {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: #ad6324;
+  font: 600 11px/1.45 var(--font-inter), sans-serif;
+  letter-spacing: .065em;
+  text-transform: uppercase;
+}
+.review-examples-heading h3 {
+  color: #242629;
+  font: 575 clamp(29px, 2.9vw, 42px)/1.18 var(--font-inter), sans-serif;
+  letter-spacing: -.042em;
+}
+.review-examples-heading > p {
+  max-width: 255px;
+  color: #697c7d;
+  font: 440 13px/1.6 var(--font-inter), sans-serif;
+  text-align: right;
+}
+
+.review-example-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(13px, 1.4vw, 21px);
+  align-items: stretch;
+}
+
+.review-example-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 305px;
+  padding: clamp(20px, 2vw, 29px);
+  background: #fffdfa;
+  border: 1px solid #eee8e0;
+  border-radius: 17px;
+  box-shadow: 0 7px 25px rgba(67, 51, 30, .035);
+  will-change: transform;
+  transition: transform .32s cubic-bezier(.2,.7,.2,1), border-color .32s ease, box-shadow .32s ease;
+}
+.review-example-card:hover {
+  transform: translateY(-5px);
+  border-color: #e7ceb1;
+  box-shadow: 0 18px 42px rgba(75, 55, 30, .085);
+}
+
+.review-example-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.review-example-avatar {
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  border-radius: 11px;
+  flex: none;
+  background: #fff0dc;
+  color: #a85c1c;
+  font: 700 13px/1 var(--font-inter), sans-serif;
+}
+.review-example-card:nth-child(2) .review-example-avatar { background: #f7edda; color: #8d743e; }
+.review-example-card:nth-child(3) .review-example-avatar { background: #f2e6d7; color: #986539; }
+.review-example-card:nth-child(4) .review-example-avatar { background: #fff2df; color: #b36c22; }
+
+.review-example-author > div { min-width: 0; }
+.review-example-author h4 {
+  margin: 0;
+  color: #292b2b;
+  font: 650 clamp(15px, 1.14vw, 18px)/1.32 var(--font-inter), sans-serif;
+  letter-spacing: -.025em;
+}
+.review-example-author p {
+  margin: 4px 0 0;
+  color: #85847f;
+  font: 430 clamp(12px, .92vw, 14px)/1.4 var(--font-inter), sans-serif;
+}
+
+.review-example-card blockquote {
+  flex: 1;
+  margin: 27px 0 25px;
+  padding: 0;
+  color: #525350;
+  font: 445 clamp(15px, 1.12vw, 17px)/1.59 var(--font-inter), sans-serif;
+  letter-spacing: -.012em;
+  text-wrap: pretty;
+}
+
+.review-example-detail {
+  display: block;
+  margin-top: auto;
+  padding-top: 3px;
+  color: #bc6c2a;
+  font: 660 10px/1.55 var(--font-inter), sans-serif;
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+
+.review-examples-disclaimer {
+  margin: 17px 0 0;
+  color: #8b918e;
+  font: 410 11px/1.55 var(--font-inter), sans-serif;
+  text-align: right;
+}
+
+@media (max-width: 1499px) {
+  .review-example-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; }
+  .review-example-card { min-height: 245px; }
+  .review-example-author h4 { font-size: 18px; }
+  .review-example-author p { font-size: 14px; }
+  .review-example-card blockquote { font-size: 17px; margin-top: 25px; }
+}
+@media (max-width: 749px) {
+  .review-examples { margin-top: 68px; }
+  .review-examples-heading { display: block; margin-bottom: 24px; }
+  .review-examples-heading > p { max-width: none; text-align: left; margin-top: 12px; }
+  .review-example-grid { grid-template-columns: 1fr; gap: 14px; }
+  .review-example-card { min-height: 0; padding: 24px; border-radius: 14px; }
+  .review-example-card blockquote { margin: 25px 0; font-size: 17px; }
+  .review-examples-disclaimer { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .review-example-card {
+    will-change: auto;
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+}
