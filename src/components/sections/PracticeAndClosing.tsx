@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { CustomerVoice } from "./CustomerVoice";
+import { ReviewCards } from "./ReviewCards";
 import { Onboarding } from "./Onboarding";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -70,6 +71,7 @@ export function PracticeAndClosing() {
             </div>
           </div>
           <CustomerVoice />
+          <ReviewCards />
         </div>
       </section>
       <Onboarding />
