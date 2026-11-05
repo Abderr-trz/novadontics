@@ -8,6 +8,7 @@ import "./patient-journey.css";
 import "./trust-onboarding.css";
 import "./practice-proof.css";
 import "./hero-platform-transition.css";
+import "./continuous-flow.css";
 
 const inter = Inter({
   variable: "--font-inter",
