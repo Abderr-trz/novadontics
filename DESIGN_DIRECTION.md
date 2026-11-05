@@ -143,3 +143,16 @@ Implementation lives ONLY in:
 - All other website sections remain untouched.
 
 Vercel deployment for source commit `fb812dfd14efb69af18389a3fe9d2429fd68b2d5` is READY; preview is protected and share link can be generated with Vercel get_access_to_vercel_url. TinyFish QA was attempted but cancelled by the user before a full visual result was returned: DO NOT claim live scroll-movement visual verification for this build. Next validation: review full connection sequence, reverse scroll, card clicks at 1368×831; also inspect mobile at 390px and 768px. Maintain current branch; do not merge to main without user approval.
+
+
+## November 4 — Continuous-page refinement and borderless trust wall
+
+User selected an editorial screenshot of black wordmarks in two clean rows, explicitly **without a tile grid**. They also requested that the site feel like ONE page, not a stack of disconnected boxed sections.
+
+Implementation:
+- `src/components/sections/TrustProof.tsx`: retained eight verifiable dental practice logos from the existing repository. The large left-side title column is replaced by a short centered credibility line; a simple 4×2 logo wall below, no new fabricated companies. GSAP stagger remains mild, and never hides logos completely while waiting for ScrollTrigger (min alpha .78 instead of autoAlpha 0).
+- `src/app/practice-proof.css`: full-width logo wall on the inherited page canvas, no border or logo background boxes; optical compensation for source logo whitespace; 2-column responsive phone grid and reduced-motion visibility.
+- `src/app/continuous-flow.css` imported last via `src/app/layout.tsx`: shared ivory canvas flows continuously from Hero to Product Experience to connected patient journey, solutions and onboarding. Remove the box around the full Product Experience section; preserve only the useful internal navigation hairline. Remove abrupt section outlines and avoid large redundant gaps. Onboarding gradually warms the shared canvas, transitioning deliberately into the dark closing CTA.
+- No changes to the verified logo assets, hero GSAP interactions, patient journey content or core routes; `main` stays untouched.
+
+Build: Vercel READY on `design-refinement-editorial`. TinyFish QA captured the page but did not reliably scroll into the customer logo wall; it therefore could not validate logo visibility visually. A robustness patch ensures logo elements remain at least partly visible rather than waiting invisibly for an animation trigger. Check 1440x900 and 390x844 manually, with particular attention to the 4×2 wall and the product-story background seam before merging.
