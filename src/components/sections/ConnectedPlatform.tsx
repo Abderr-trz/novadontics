@@ -46,7 +46,9 @@ export function ConnectedPlatform() {
       <div className="platform-showcase-glow" aria-hidden="true" />
       <div className="platform-showcase-lines" aria-hidden="true" />
 
-      <div className="platform-composition" aria-label="Actual Novadontics practice-management, patient engagement, clinical imaging and implant workflows shown together">
+      <div className="platform-stage">
+        <div className="platform-stage-sticky">
+          <div className="platform-composition" aria-label="Actual Novadontics practice-management, patient engagement, clinical imaging and implant workflows shown together">
         <figure className="platform-main-window">
           <div className="platform-window-chrome">
             <BrowserChrome />
@@ -82,6 +84,8 @@ export function ConnectedPlatform() {
             </div>
           </figure>
         ))}
+          </div>
+        </div>
       </div>
 
       <div className="site-container platform-client-strip">
