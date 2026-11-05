@@ -67,14 +67,14 @@ export function PracticeLogos() {
 
       tl.fromTo(
         ".practice-proof-intro",
-        { autoAlpha: 0, y: 12 },
-        { autoAlpha: 1, y: 0, duration: .65, ease: "power2.out" },
+        { opacity: .85, y: 12 },
+        { opacity: 1, y: 0, duration: .65, ease: "power2.out" },
         0,
       ).fromTo(
         ".practice-logo-grid li",
-        { autoAlpha: 0, y: 16, scale: .975 },
+        { opacity: .78, y: 16, scale: .985 },
         {
-          autoAlpha: 1,
+          opacity: 1,
           y: 0,
           scale: 1,
           duration: .75,
