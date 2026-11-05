@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowDown, ArrowUpRight, CalendarDays, Check, FolderOpen, ScanLine, ReceiptText, MessageSquareText } from "lucide-react";
+import { ArrowDown, CalendarDays, Check, FolderOpen, ScanLine, ReceiptText, MessageSquareText } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -19,36 +19,36 @@ const steps = [
   {
     id: "appointment",
     label: "Scheduling",
-    supporting: "A clear view of your day",
-    detail: "Scheduling and patient information move together.",
+    supporting: "Your day, in view",
+    detail: "Scheduling and patient information, together.",
     Icon: CalendarDays,
   },
   {
     id: "record",
     label: "Patient records",
-    supporting: "The whole patient picture",
-    detail: "Clinical history and visit context remain connected.",
+    supporting: "The full patient picture",
+    detail: "Clinical history in one place.",
     Icon: FolderOpen,
   },
   {
     id: "imaging",
     label: "Clinical imaging",
-    supporting: "Clarity at the point of care",
-    detail: "Images and clinical records belong in one workflow.",
+    supporting: "Images in context",
+    detail: "Images connected to the record.",
     Icon: ScanLine,
   },
   {
     id: "billing",
     label: "Billing",
-    supporting: "From treatment to payment",
-    detail: "Clinical and administrative work stay in sync.",
+    supporting: "Treatment to payment",
+    detail: "Billing follows care.",
     Icon: ReceiptText,
   },
   {
     id: "followup",
     label: "Patient communication",
-    supporting: "Keep the conversation going",
-    detail: "Communication continues beyond the visit.",
+    supporting: "Beyond the visit",
+    detail: "Conversations beyond the visit.",
     Icon: MessageSquareText,
   },
 ] as const;
@@ -66,6 +66,7 @@ const connectionPaths = [
 export function PatientJourney() {
   const root = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLDivElement>(null);
+  const scene = useRef<HTMLDivElement>(null);
   const timeline = useRef<gsap.core.Timeline | null>(null);
   const [connected, setConnected] = useState(0);
 
@@ -74,7 +75,7 @@ export function PatientJourney() {
 
     media.add("(min-width: 1024px) and (min-height: 580px) and (prefers-reduced-motion: no-preference)", () => {
       const stage = canvas.current;
-      if (!stage) return;
+      if (!stage || !scene.current) return;
 
       const paths = Array.from(stage.querySelectorAll<SVGPathElement>(".pj-wire-active"));
       const nodes = Array.from(stage.querySelectorAll<HTMLButtonElement>(".pj-node"));
@@ -89,13 +90,12 @@ export function PatientJourney() {
       const tl = gsap.timeline({
         defaults: { ease: "none" },
         scrollTrigger: {
-          trigger: stage,
+          // The map sticks inside its own scroll scene. No GSAP pin spacer can
+          // lift the canvas above the previous headline during the transition.
+          trigger: scene.current,
           start: "top top+=80",
-          end: () => "+=" + Math.round(window.innerHeight * 1.85),
+          end: () => "+=" + Math.max(1, scene.current!.offsetHeight - stage.offsetHeight),
           scrub: 0.7,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const next = Math.min(5, Math.floor(self.progress * 5 + 0.4));
@@ -166,21 +166,22 @@ export function PatientJourney() {
     <section id="journey" className="journey-section" ref={root} aria-labelledby="journey-heading">
       <div className="site-container journey-intro">
         <div className="journey-intro-main">
-          <span className="journey-eyebrow">The connected patient journey</span>
+          <span className="journey-eyebrow">Patient journey</span>
           <h2 id="journey-heading">
             One patient journey.
             <span>One connected record.</span>
           </h2>
         </div>
         <div className="journey-intro-side">
-          <p>Five important moments in a patient's experience. One continuous flow for the practice.</p>
-          <span className="journey-scroll-hint"><ArrowDown size={15} aria-hidden="true" /> Scroll to connect the moments</span>
+          <p>Five moments. One connected record.</p>
+          <span className="journey-scroll-hint"><ArrowDown size={15} aria-hidden="true" /> Scroll to connect</span>
         </div>
       </div>
 
-      <div className="pj-map" ref={canvas} aria-label="Interactive illustration of five care workflows connected to one patient record">
+      <div className="pj-scroll-scene" ref={scene}>
+        <div className="pj-map" ref={canvas} aria-label="Interactive illustration of five care workflows connected to one patient record">
         <div className="pj-map-topline">
-          <span className="pj-map-eyebrow"><span className="pj-map-dot" aria-hidden="true" /> THE PRACTICE, IN SYNC</span>
+          <span className="pj-map-dot" aria-hidden="true" />
           <span className="pj-map-progress">{String(connected).padStart(2, "0")} / 05 connected</span>
         </div>
 
@@ -196,18 +197,14 @@ export function PatientJourney() {
         <div className={`pj-center-card ${connected === steps.length ? "is-complete" : ""}`}>
           <div className="pj-center-brand">
             <Image
-              src="/assets/novadontics/LogoColorAndGray.svg"
-              alt="Novadontics"
-              width={186}
-              height={40}
-              sizes="186px"
+              src="/assets/novadontics/LogoMark.svg"
+              alt="Novadontics symbol"
+              width={40}
+              height={51}
+              sizes="56px"
             />
           </div>
-          <p>Your entire practice.<br/><strong>In one place.</strong></p>
-          <span className="pj-center-status">
-            <Check size={14} aria-hidden="true" />
-            {connected === 5 ? "All systems connected" : connected === 0 ? "Connecting your practice" : `${connected} of 5 connected`}
-          </span>
+
         </div>
 
         {steps.map((step, index) => {
@@ -233,20 +230,12 @@ export function PatientJourney() {
           );
         })}
 
-        <span className="pj-map-caption">An illustration of connected clinical and administrative workflows</span>
-      </div>
-
-      <div className="site-container pj-epilogue">
-        <p>From booking to follow-up, every detail belongs to the same story.</p>
-        <a href="https://www.novadontics.com/the-platform">
-          Discover the platform <ArrowUpRight size={16} aria-hidden="true" />
-        </a>
+        </div>
       </div>
 
       <div className="site-container pj-mobile-flow" aria-label="The five connected steps of the patient journey">
         <div className="pj-mobile-center">
-          <Image src="/assets/novadontics/LogoColorAndGray.svg" width={156} height={35} alt="Novadontics" />
-          <span>One connected patient record</span>
+          <Image src="/assets/novadontics/LogoMark.svg" width={40} height={51} alt="Novadontics symbol" />
         </div>
         {steps.map((step, index) => {
           const Icon = step.Icon;
@@ -262,9 +251,6 @@ export function PatientJourney() {
             </article>
           );
         })}
-        <a className="pj-mobile-link" href="https://www.novadontics.com/the-platform">
-          Explore the connected platform <ArrowUpRight size={15} aria-hidden="true" />
-        </a>
       </div>
     </section>
   );
