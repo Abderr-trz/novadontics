@@ -30,8 +30,8 @@
   }
   .hero-platform-transition .platform-stage {
     position: relative;
-    height: calc(210svh - 72px);
-    min-height: 1050px;
+    height: calc(235svh - 72px);
+    min-height: 1200px;
     width: 100%;
     isolation: isolate;
   }
