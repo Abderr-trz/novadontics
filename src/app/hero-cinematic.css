@@ -1,39 +1,39 @@
-/* Attio-inspired cinematic product introduction, adapted to Novadontics.
-   One oversized authentic dashboard at first. Native scrolling scales it into
-   a spatial composition of four real product surfaces. No JS pin, no wheel
-   interception, no duplication of the official product screenshots. */
+/* Novadontics / cinematic software reveal, scaled to ACTUAL laptop as well
+   as large monitor viewports. The main screen is initially the focus, then
+   shrinks as the other three authentic screens form a balanced composition. */
 
-@media (min-width: 1180px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 1100px) and (min-height: 580px) and (prefers-reduced-motion: no-preference) {
   .hero-platform-transition .hero-centered {
-    padding-top: clamp(152px, 12vw, 202px);
-    padding-bottom: clamp(35px, 3.5vw, 56px);
+    padding-top: clamp(99px, 7.7vw, 138px);
+    padding-bottom: clamp(18px, 2.3vw, 32px);
   }
   .hero-platform-transition .hero-centered .hero-title {
-    font-size: clamp(55px, 5.08vw, 92px);
-    font-weight: 595;
-    line-height: 1.07;
+    max-width: 1180px;
+    margin-top: clamp(24px, 2.4vw, 33px);
+    font-size: clamp(50px, 4.75vw, 79px);
+    line-height: 1.075;
+    font-weight: 590;
     letter-spacing: -.049em;
-    max-width: 1190px;
   }
   .hero-platform-transition .hero-centered .hero-lead {
-    max-width: 665px;
-    margin-top: 29px;
-    font-size: clamp(16px, 1.15vw, 19px);
+    max-width: 660px;
+    margin-top: 22px;
+    font-size: clamp(15px, 1.1vw, 18px);
+    line-height: 1.53;
   }
-  .hero-platform-transition .hero-centered .hero-actions {
-    margin-top: 29px;
-  }
+  .hero-platform-transition .hero-centered .hero-actions { margin-top: 23px; }
+
   .hero-platform-transition .platform-showcase {
     z-index: 2;
+    margin-top: -8px;
     padding-top: 0;
-    margin-top: -16px;
   }
   .hero-platform-transition .platform-stage {
     position: relative;
-    height: calc(235svh - 72px);
-    min-height: 1200px;
-    width: 100%;
     isolation: isolate;
+    width: 100%;
+    min-height: calc(100svh + 540px);
+    height: 213svh;
   }
   .hero-platform-transition .platform-stage-sticky {
     position: sticky;
@@ -41,98 +41,103 @@
     height: calc(100svh - 72px);
     min-height: 0;
     display: grid;
-    align-items: center;
-    justify-items: center;
+    place-items: center;
     width: 100%;
     overflow: visible;
   }
   .hero-platform-transition .platform-composition {
-    width: min(calc(100% - 82px), 1560px);
-    height: min(clamp(500px, 40vw, 710px), calc(100svh - 132px));
-    margin-inline: auto;
+    display: block;
+    grid-template-columns: none;
+    width: min(calc(100% - 56px), 1560px);
+    height: min(clamp(405px, 37vw, 680px), calc(100svh - 114px));
+    margin: 0 auto;
     overflow: visible;
     isolation: isolate;
   }
   .hero-platform-transition .platform-main-window {
+    position: absolute;
     left: 14%;
     top: 9%;
     width: 72%;
-    transform-origin: 50% 50%;
     z-index: 2;
+    transform-origin: 50% 50%;
   }
   .hero-platform-transition .platform-floating-window {
-    transform-origin: 50% 50%;
+    position: absolute;
     z-index: 3;
+    transform-origin: 50% 50%;
   }
   .hero-platform-transition .platform-patient {
-    left: 1%;
+    left: 1.3%;
+    right: auto;
     top: 0;
-    width: 23%;
+    width: 22%;
   }
   .hero-platform-transition .platform-clinical {
     left: 3%;
+    right: auto;
     top: 45%;
     width: 25%;
   }
   .hero-platform-transition .platform-implant {
-    right: 1%;
+    left: auto;
+    right: 1.3%;
     top: 18%;
     width: 22%;
   }
-  .hero-platform-transition .platform-client-strip {
-    margin-top: clamp(2px, 1.7vw, 24px);
-  }
-}
-
-@media (min-width: 1700px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
-  .hero-platform-transition .platform-composition {
-    width: min(calc(100% - 180px), 1580px);
-    height: min(710px, calc(100svh - 150px));
-  }
-  .hero-platform-transition .platform-main-window {
-    width: 71%;
-    left: 14.5%;
-  }
-  .hero-platform-transition .platform-floating-label {
-    font-size: 13px;
-  }
   .hero-platform-transition .platform-floating-image img {
-    max-height: 242px;
+    max-height: clamp(150px, 16vw, 240px);
+  }
+  .hero-platform-transition .platform-client-strip {
+    margin-top: clamp(7px, 2vw, 27px);
   }
 }
 
-/* On tablet, mobile, reduced motion, or short desktop screens, there is no
-   extended sticky scene. Keep the established product grid fully visible. */
-@media (max-width: 1179px), (max-height: 699px), (prefers-reduced-motion: reduce) {
+@media (min-width: 1680px) and (min-height: 580px) and (prefers-reduced-motion: no-preference) {
+  .hero-platform-transition .hero-centered {
+    padding-top: clamp(129px, 8vw, 170px);
+    padding-bottom: 27px;
+  }
+  .hero-platform-transition .hero-centered .hero-title {
+    font-size: clamp(76px, 4.65vw, 88px);
+    max-width: 1250px;
+  }
+  .hero-platform-transition .hero-centered .hero-lead {
+    font-size: 18px;
+    margin-top: 28px;
+  }
+  .hero-platform-transition .platform-composition {
+    width: min(calc(100% - 150px), 1560px);
+    height: min(695px, calc(100svh - 135px));
+  }
+}
+
+/* At 1100–1179px, override the old tablet grid, rather than showing a static
+   desktop layout with missing animations. Smaller screens retain the grid. */
+@media (max-width: 1099px), (max-height: 579px), (prefers-reduced-motion: reduce) {
   .hero-platform-transition .platform-stage {
+    width: 100%;
     height: auto;
     min-height: 0;
-    width: 100%;
   }
   .hero-platform-transition .platform-stage-sticky {
+    display: block;
     position: relative;
     top: auto;
+    width: 100%;
     height: auto;
     min-height: 0;
-    display: block;
-    width: 100%;
   }
 }
 
-@media (min-width: 1180px) and (max-height: 699px) {
-  .hero-platform-transition .platform-showcase {
-    margin-top: 0;
-  }
-  .hero-platform-transition .platform-composition {
-    height: min(550px, calc(100svh - 95px));
+@media (min-width: 1100px) and (max-height: 579px) {
+  .hero-platform-transition .hero-centered {
+    padding-top: 100px;
+    padding-bottom: 36px;
   }
 }
 
 @media (max-width: 767px) {
-  .hero-platform-transition .hero-centered .hero-title {
-    text-wrap: balance;
-  }
-  .hero-platform-transition .platform-stage {
-    margin-top: 0;
-  }
+  .hero-platform-transition .hero-centered .hero-title { text-wrap: balance; }
+  .hero-platform-transition .platform-stage { margin-top: 0; }
 }
