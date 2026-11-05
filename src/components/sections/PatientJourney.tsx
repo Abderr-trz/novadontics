@@ -56,10 +56,10 @@ const steps = [
 // Endpoints match the percentages defined in patient-journey.css.
 // Path layout is symmetric but each connection draws independently.
 const connectionPaths = [
-  "M372 145 H399 Q432 145 432 181 V260 Q432 282 452 282",
-  "M828 145 H801 Q768 145 768 181 V260 Q768 282 748 282",
-  "M372 403 H402 Q432 403 432 370 V324 Q432 305 452 305",
-  "M828 403 H798 Q768 403 768 370 V324 Q768 305 748 305",
+  "M372 145 H399 Q432 145 432 181 V260 Q432 282 490 282",
+  "M828 145 H801 Q768 145 768 181 V260 Q768 282 710 282",
+  "M372 403 H402 Q432 403 432 370 V324 Q432 305 490 305",
+  "M828 403 H798 Q768 403 768 370 V324 Q768 305 710 305",
   "M600 359 V480",
 ] as const;
 
