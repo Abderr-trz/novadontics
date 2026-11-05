@@ -52,7 +52,7 @@ export function HeroPlatformTransition() {
         scrollTrigger: {
           trigger: stage,
           start: "top top+=72",
-          end: () => "+=" + Math.max(500, Math.round(window.innerHeight * 0.99)),
+          end: () => "+=" + Math.max(520, Math.round(window.innerHeight * 1.05)),
           scrub: 0.8,
           invalidateOnRefresh: true,
         },
@@ -61,28 +61,28 @@ export function HeroPlatformTransition() {
       tl.fromTo(
         ".platform-main-window",
         { autoAlpha: 1, y: 52, scale: 1.27 },
-        { autoAlpha: 1, y: 0, scale: 1, duration: 1.15, ease: "power2.inOut" },
+        { autoAlpha: 1, y: 0, scale: 1, duration: 0.91, ease: "power2.inOut" },
         0,
       )
         .fromTo(
           ".platform-patient",
           { autoAlpha: 0, y: 102, x: 43, scale: 0.87 },
-          { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.67, ease: "power2.out" },
-          0.57,
+          { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.58, ease: "power2.out" },
+          0.33,
         )
         .fromTo(
           ".platform-clinical",
           { autoAlpha: 0, y: 112, x: 67, scale: 0.86 },
-          { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.67, ease: "power2.out" },
-          0.72,
+          { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.58, ease: "power2.out" },
+          0.45,
         )
         .fromTo(
           ".platform-implant",
           { autoAlpha: 0, y: 100, x: -65, scale: 0.87 },
-          { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.67, ease: "power2.out" },
-          0.85,
+          { autoAlpha: 1, y: 0, x: 0, scale: 1, duration: 0.58, ease: "power2.out" },
+          0.56,
         )
-        .to({}, { duration: 0.22 }, 1.52);
+        .to({}, { duration: 0.24 }, 1.17);
     });
 
     // Tablet: do not force a desktop overlap on a three-column product grid.
