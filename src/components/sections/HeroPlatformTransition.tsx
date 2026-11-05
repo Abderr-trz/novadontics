@@ -24,7 +24,7 @@ export function HeroPlatformTransition() {
   useGSAP(() => {
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 1180px) and (prefers-reduced-motion: no-preference)", () => {
+    mm.add("(min-width: 1180px) and (min-height: 700px) and (prefers-reduced-motion: no-preference)", () => {
       const hero = wrapper.current?.querySelector<HTMLElement>(".hero-centered");
       const stage = wrapper.current?.querySelector<HTMLElement>(".platform-stage");
       const sticky = wrapper.current?.querySelector<HTMLElement>(".platform-stage-sticky");
